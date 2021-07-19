@@ -51,7 +51,7 @@ ipcMain.on("search", (event, data) => {
   })
 });
 
-// Might try to turn this 3 into 1 function.
+// Might try to turn this 4 into 1 function.
 ipcMain.on('downloadAll', (event, data) => {
   spawn("python", ["python/pyrun.py", "downloadAll", data]);
 });
@@ -59,10 +59,10 @@ ipcMain.on("downloadBetween", (event, data) => {
   spawn("python", ["python/pyrun.py", "downloadBetween", data]);
 });
 ipcMain.on("downloadSelect", (event, data) => {
-  const test = spawn("python", ["python/pyrun.py", "downloadSelect", data]);
-  test.stdout.on('data', data => {
-    console.log(data.toString());
-  })
+  spawn("python", ["python/pyrun.py", "downloadSelect", data]);
+});
+ipcMain.on("downloadPokemonhub", (event, data) => {
+  spawn("python", ["python/pyrun.py", "downloadPokemonhub", data]);
 });
 
 ipcMain.on("getEpisodeList", (event, data) => {
@@ -70,9 +70,4 @@ ipcMain.on("getEpisodeList", (event, data) => {
   episodeList.stdout.on("data", (result) => {
     mainWindow.webContents.send("episodeList", strToArray(result.toString()));
   });
-});
-
-// Events for pokemon_hub.
-ipcMain.on("downloadPokemonhub", (event, data) => {
-  console.log(data);
 });

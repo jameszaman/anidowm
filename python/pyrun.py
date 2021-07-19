@@ -3,6 +3,7 @@ from os import getcwd
 from threading import Thread
 from anime_download import download_all_anime, download_select_episodes
 from search_anime import search_anime, get_episode_list
+from pokemonhub_download import pokemonhub_download
 
 # sys.argv[0] is fileName, 1 command, 2 is additional info.
 if sys.argv[1] == 'search':
@@ -25,6 +26,9 @@ elif sys.argv[1] == 'downloadSelect':
   data = sys.argv[2].split(',')
   episodeArray = [int(data[i]) for i in range(len(data)) if i > 0]
   t1 = Thread(target=download_select_episodes, args=(data[0], episodeArray))
+  t1.start()
+elif sys.argv[1] == 'downloadPokemonhub':
+  t1 = Thread(target=pokemonhub_download, args=(sys.argv[2], ))
   t1.start()
 
 
