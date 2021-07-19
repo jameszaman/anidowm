@@ -17,7 +17,7 @@ def extract_url2(script_string):
 def download_anime(anime, target_folder):
   # Necessary variables
   url = 'https://animekisa.tv/'
-  user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
+  user_agent = 'Mozilla/5.0'
 
   # Get the page with given url.
   page = request.urlopen(request.Request(f'{url}/{anime}', data=None, headers={'User-Agent': user_agent})).read()
@@ -49,7 +49,7 @@ def get_all_download_links(name):
   url = f'{base_url}/{nameFormated}'
   
   # Getting all the anime in a page.
-  user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
+  user_agent = 'Mozilla/5.0'
   page = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read()
   page_soup = soup(page, 'html.parser')
   urls = page_soup.findAll('a', {

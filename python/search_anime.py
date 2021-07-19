@@ -5,7 +5,7 @@ def search_anime(anime):
   # page url
   url = 'https://animekisa.tv'
   # Necessary data for request.
-  user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
+  user_agent = 'Mozilla/5.0'
   # Getting the page and turning it into soup.
   # Converting spaces to '+'
   anime = '+'.join(anime.split())
@@ -41,7 +41,7 @@ def get_episode_list(name):
   url = f'{base_url}/{nameFormated}'
   
   # Getting all the anime in a page.
-  user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
+  user_agent = 'Mozilla/5.0'
   page = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read()
   page_soup = soup(page, 'html.parser')
   

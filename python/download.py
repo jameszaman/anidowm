@@ -1,7 +1,7 @@
 import requests
 
 def download_file(url, local_filename):
-  user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
+  user_agent = 'Mozilla/5.0'
   # NOTE the stream=True parameter below
   with requests.get(url, stream=True, headers={'User-Agent': user_agent}) as r:
     r.raise_for_status()
