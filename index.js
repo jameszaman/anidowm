@@ -64,6 +64,9 @@ ipcMain.on("downloadSelect", (event, data) => {
 ipcMain.on("downloadPokemonhub", (event, data) => {
   spawn("python", ["python/pyrun.py", "downloadPokemonhub", data]);
 });
+ipcMain.on("NPokemonDownload", (event, data) => {
+  spawn("python", ["python/pyrun.py", "NPokemonDownload", data[0], data[1]]);
+});
 
 ipcMain.on("getEpisodeList", (event, data) => {
   const episodeList = spawn("python", ["python/pyrun.py", "getEpisodeList", data]);
