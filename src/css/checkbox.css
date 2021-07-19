@@ -1,0 +1,38 @@
+/* Code fot checkbox */
+.checkbox {
+  display: none;
+}
+.checkbox + label {
+  font-size: 1.4em;
+  position: relative;
+  cursor: pointer;
+  margin-left: 2em;
+  background-color: transparent;
+}
+.checkbox + label::before {
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid hsl(120, 76%, 64%);
+  position: absolute;
+  left: -1.5em;
+}
+.checkbox + label::after {
+  box-sizing: border-box;
+  content: '✔';
+  color: hsl(157, 68%, 50%);
+  position: absolute;
+  font-size: 1em;
+  left: -1.4em;
+  top: -0.2em;
+  opacity: 0;
+  transition: 0.3s ease-out;
+}
+.checkbox:checked + label::after {
+  opacity: 1;
+}
+.select-btn {
+  margin-bottom: 1em;
+}

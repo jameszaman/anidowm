@@ -1,0 +1,44 @@
+.search-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search-main-container > * {
+  max-width: 95rem;
+  width: 80vw;
+}
+.searchbar-container {
+  margin: 1em;
+  display: flex;
+  border: 1px solid var(--clr-black-secondary);
+}
+.search-text {
+  font-size: 1.3rem;
+  color: var(--fnt-clr);
+  padding: 0.25em 0.5em;
+  flex: 8;
+  border: 0;
+}
+.search-text:focus {
+  outline: 0;
+}
+.search-button {
+  flex: 2;
+}
+.search-result-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.search-result {
+  width: 20rem;
+  margin: 1em 0.5em;
+}
+.anime-image {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+}
