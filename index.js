@@ -31,6 +31,7 @@ app.on('ready', () => {
 });
 
 // Events from window.
+// Events for anime.
 ipcMain.on("search", (event, data) => {
   const searchResult = spawn("python", ["python/pyrun.py", "search", data]);
   searchResult.stdout.on('data', (result) => {
@@ -69,4 +70,9 @@ ipcMain.on("getEpisodeList", (event, data) => {
   episodeList.stdout.on("data", (result) => {
     mainWindow.webContents.send("episodeList", strToArray(result.toString()));
   });
+});
+
+// Events for pokemon_hub.
+ipcMain.on("downloadPokemonhub", (event, data) => {
+  console.log(data);
 });
