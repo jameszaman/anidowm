@@ -1,0 +1,132 @@
+/* Main Styling. */
+.search-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search-main-container > * {
+  max-width: 95rem;
+  width: 80vw;
+}
+.searchbar-container {
+  margin: 1em;
+  display: flex;
+  border: 1px solid var(--clr-black-secondary);
+}
+.search-text {
+  font-size: 1.3rem;
+  color: var(--fnt-clr);
+  padding: 0.25em 0.5em;
+  flex: 8;
+  border: 0;
+}
+.search-text:focus {
+  outline: 0;
+}
+.search-button {
+  flex: 2;
+}
+.search-result-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.search-result {
+  width: 20rem;
+  margin: 1em 0.5em;
+}
+.anime-image {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Code for download popup */
+.download-popup-container {
+  width: 100%;
+  position: fixed;
+  top: 25vh;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+.download-popup {
+  background-color: var(--clr-black-secondary);
+  padding: 3em 2em 2em 2em;
+  border-radius: 0.3em;
+  border: 1px solid hsl(0, 0%, 41%);
+  position: relative;
+}
+.select-download {
+  display: flex;
+  flex-direction: column;
+  max-width: 50vw;
+  background-color: transparent;
+}
+.download-between-input {
+  font-size: 1.3rem;
+  width: 5em;
+}
+.option-container {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-height: 20rem;
+  overflow-y: auto;
+  background-color: transparent;
+}
+
+/* Code fot checkbox */
+.checkbox {
+  display: none;
+}
+.checkbox + label {
+  font-size: 1.4em;
+  position: relative;
+  cursor: pointer;
+  margin-left: 2em;
+  background-color: transparent;
+}
+.checkbox + label::before {
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid hsl(120, 76%, 64%);
+  position: absolute;
+  left: -1.5em;
+}
+.checkbox + label::after {
+  box-sizing: border-box;
+  content: '✔';
+  color: hsl(157, 68%, 50%);
+  position: absolute;
+  font-size: 1em;
+  left: -1.4em;
+  top: -0.2em;
+  opacity: 0;
+  transition: 0.3s ease-out;
+}
+.checkbox:checked + label::after {
+  opacity: 1;
+}
+.select-btn {
+  margin-bottom: 1em;
+}
+.delete-btn {
+  font-size: 2.2rem;
+  position: absolute;
+  top: -0.1em;
+  right: 0.2em;
+  cursor: pointer;
+  color: hsl(0, 100%, 63%);
+  background-color: transparent;
+}
+.delete-btn:hover {
+  color:hsl(0, 100%, 67%);
+}
