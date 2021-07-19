@@ -4,6 +4,7 @@ from threading import Thread
 from anime_download import download_all_anime, download_select_episodes
 from search_anime import search_anime, get_episode_list
 from pokemonhub_download import pokemonhub_download
+from npokemon_download import npokemon_download
 
 # sys.argv[0] is fileName, 1 command, 2 is additional info.
 if sys.argv[1] == 'search':
@@ -30,5 +31,7 @@ elif sys.argv[1] == 'downloadSelect':
 elif sys.argv[1] == 'downloadPokemonhub':
   t1 = Thread(target=pokemonhub_download, args=(sys.argv[2], ))
   t1.start()
+elif sys.argv[1] == 'NPokemonDownload':
+  npokemon_download(sys.argv[2], sys.argv[3].split(','))
 
 

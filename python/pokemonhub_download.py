@@ -15,7 +15,6 @@ def pokemonhub_download(urls):
   # Variable declarations.
   urlFetcherDomain = 'https://xxxsave.net'
   urlFetcher = 'https://xxxsave.net/result-fetch'
-  target_folder = getcwd()
 
   # Setting up client.
   client = requests.session()
@@ -43,6 +42,7 @@ def pokemonhub_download(urls):
       
 
       # Making sure the download folder exists.
+      target_folder = getcwd()
       dir_list = listdir(target_folder)
       if 'download' not in dir_list:
         mkdir('download')
