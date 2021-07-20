@@ -6,18 +6,7 @@ from os import environ, listdir, mkdir
 # User defined modules.
 from download import download_file
 
-def pokemonhub_download(url):
-  # converting url to fetching url
-  url = f'https://anidownserver.jameshedayet.repl.co/getpokemonhuburl?pokemon={url}'
-  # Fetching the url and converting it.
-  user_agent = 'Mozilla/5.0'
-  urlData = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode()
-  # Converting string to dict.
-  urlData = json.loads(urlData)
-  
-  if urlData['success'] == 'true':
-    title = urlData['title']
-    
+def pokemonhub_download(url, title):
     # Sanatize title
     title = title.replace('\n', '')
     title = title.replace('\t', '')
@@ -37,5 +26,4 @@ def pokemonhub_download(url):
       mkdir(f'{target_folder}/Anidown')
     target_folder += '/Anidown'
     # Downloading the video.
-    quality = urlData['quality'][-1]
-    download_file(urlData[f's{quality}'], f'{target_folder}/{title}.mp4')
+    download_file(url, f'{target_folder}/{title}.mp4')

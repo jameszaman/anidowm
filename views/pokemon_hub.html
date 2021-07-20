@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../src/css/search.css">
+  <link rel="stylesheet" type="text/css" href="../src/css/download_popup.css">
   <link rel="stylesheet" type="text/css" href="../src/css/style.css">
   <title>Pokemon Hub</title>
 </head>
@@ -13,6 +14,14 @@
     <a href="./index.html">Anime</a>
     <a href="./npokemon.html">npokemon</a>
   </nav>
+  <div class="download-popup-container">
+    <div class="download-popup hidden" id="download-popup">
+      <span class="delete-btn" id="delete-btn">&#10799</span>
+      <div class="initial-buttons" id="initial-buttons">
+        <!-- Adding options with JS. -->
+      </div>
+    </div>
+  </div>
   <form class="searchbar-container" id="search-form">
     <input class="search-text" type="text" placeholder="Search..." id="search-text">
     <button class="search-button btn" type="submit" id="search-button">Search</button>

@@ -6,6 +6,9 @@ const { ipcRenderer } = electron;
 const searchText = document.querySelector("#search-text");
 const searchForm = document.querySelector("#search-form");
 const searchResultContainer = document.querySelector("#search-result-container");
+const downloadPopup = document.querySelector("#download-popup");
+const deleteBtn = document.querySelector("#delete-btn");
+const initialButtons = document.querySelector("#initial-buttons");
 
 // Functions.
 function deleteChilds(element) {
@@ -32,7 +35,31 @@ function addSearchResult(data) {
   downloadButton.classList.add("btn");
   // Adding events.
   downloadButton.addEventListener("click", () => {
-    ipcRenderer.send("downloadPokemonhub", data[0]);
+    fetch(
+      `https://anidownserver.jameshedayet.repl.co/getpokemonhuburl?pokemon=${data[0]}`
+    )
+    .then(res => res.json())
+    .then(data => {
+      downloadPopup.classList.remove('hidden');
+      // Delete all previous quality buttons.
+      deleteChilds(initialButtons);
+      // Add a button for each quality.
+      data["quality"].forEach(quality => {
+        // Creating elements.
+        const button = document.createElement("button");
+        // Adding data to elements.
+        button.innerText = quality;
+        // Adding classes.
+        button.classList.add("btn");
+        // Adding events.
+        button.addEventListener("click", () => {
+          downloadPopup.classList.add("hidden");
+          ipcRenderer.send("downloadPokemonhub", [data[`s${quality}`], data['title']]);
+        });
+        // Appending all the elements.
+        initialButtons.appendChild(button);
+      })
+    })
   });
   // Appending all the elements.
   info.appendChild(animeName);
@@ -70,3 +97,8 @@ searchForm.addEventListener("submit", (e) => {
     });
   });
 });
+
+deleteBtn.addEventListener("click", () => {
+  downloadPopup.classList.add("hidden");
+});
+

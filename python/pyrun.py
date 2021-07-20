@@ -23,7 +23,9 @@ elif sys.argv[1] == 'downloadSelect':
   t1 = Thread(target=download_select_episodes, args=(data[0], episodeArray))
   t1.start()
 elif sys.argv[1] == 'downloadPokemonhub':
-  t1 = Thread(target=pokemonhub_download, args=(sys.argv[2], ))
+  # Splitting url and name.
+  data = sys.argv[2].split(',')
+  t1 = Thread(target=pokemonhub_download, args=(data[0], data[1]))
   t1.start()
 elif sys.argv[1] == 'NPokemonDownload':
   npokemon_download(sys.argv[2], sys.argv[3].split(','))
