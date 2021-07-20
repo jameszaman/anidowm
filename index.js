@@ -25,20 +25,25 @@ function strToArray(str) {
 
 // App event.
 app.on('ready', () => {
+  // Different settings for production and development.
+  let devTools = true;
+  if (!process.env.DEVELOPMENT) {
+    Menu.setApplicationMenu(null);
+    devTools =  false;
+  }
   mainWindow = new BrowserWindow({
     minHeight: 600,
     minWidth: 600,
     title: 'Anidown',
     webPreferences: {
       // *** Comment this line for testing. ***
-      devTools: false,
+      devTools,
       // For working with node.
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
   mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
-  Menu.setApplicationMenu(null)
 });
 
 // Events from window.
