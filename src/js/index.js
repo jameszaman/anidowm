@@ -32,47 +32,52 @@ function deleteChilds(element) {
 }
 
 // Electron events.
-searchForm.addEventListener("submit", () => {
-  ipcRenderer.send("search", searchText.value);
-});
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  fetch(`
+    https://anidownserver.jameshedayet.repl.co/searchanimes?anime=${searchText.value}
+  `)
+    .then((res) => res.json())
+    .then((datas) => {
+      // Clearing previous search results and searchbar.
+      searchText.value = ''
+      deleteChilds(searchResultContainer);
 
-ipcRenderer.on("searchResult", (event, datas) => {
-  // Clearing previous search results.
-  deleteChilds(searchResultContainer);
-
-  // Adding all the data to the page.
-  datas[0].forEach((data, index) => {
-    // Creating elements.
-    const searchResult = document.createElement("div");
-    const animeImage = document.createElement("img");
-    const info = document.createElement("div");
-    const animeName = document.createElement("h3");
-    const downloadButton = document.createElement("button");
-    // Adding data to elements.
-    animeImage.src = datas[1][index];
-    animeName.innerText = data;
-    downloadButton.innerText = "Download";
-    // Adding classes.
-    searchResult.classList.add('search-result');
-    animeImage.classList.add("anime-image");
-    info.classList.add('info');
-    downloadButton.classList.add('btn');
-    // Adding events.
-    downloadButton.addEventListener("click", () => {
-      anime = data;
-      selectedEpisodes = [];
-      downloadPopup.classList.remove("hidden");
-      initialButtons.classList.remove("hidden");
-      downloadBetween.classList.add("hidden");
-      selectDownload.classList.add("hidden");
+      // Adding all the data to the page.
+      datas[0].forEach((data, index) => {
+        // Creating elements.
+        const searchResult = document.createElement("div");
+        const animeImage = document.createElement("img");
+        const info = document.createElement("div");
+        const animeName = document.createElement("h3");
+        const downloadButton = document.createElement("button");
+        // Adding data to elements.
+        animeImage.src = datas[1][index];
+        animeName.innerText = data;
+        downloadButton.innerText = "Download";
+        // Adding classes.
+        searchResult.classList.add("search-result");
+        animeImage.classList.add("anime-image");
+        info.classList.add("info");
+        downloadButton.classList.add("btn");
+        // Adding events.
+        downloadButton.addEventListener("click", () => {
+          anime = data;
+          selectedEpisodes = [];
+          downloadPopup.classList.remove("hidden");
+          initialButtons.classList.remove("hidden");
+          downloadBetween.classList.add("hidden");
+          selectDownload.classList.add("hidden");
+        });
+        // Appending all the elements.
+        info.appendChild(animeName);
+        info.appendChild(downloadButton);
+        searchResult.appendChild(animeImage);
+        searchResult.appendChild(info);
+        searchResultContainer.appendChild(searchResult);
+      });
     });
-    // Appending all the elements.
-    info.appendChild(animeName);
-    info.appendChild(downloadButton);
-    searchResult.appendChild(animeImage);
-    searchResult.appendChild(info);
-    searchResultContainer.appendChild(searchResult);
-  });
+  // ipcRenderer.send("search", searchText.value);
 });
 
 downloadAllBtn.addEventListener("click", () => {
@@ -81,37 +86,6 @@ downloadAllBtn.addEventListener("click", () => {
 });
 
 // When recived the episodes list,
-// render them as options to select in select download.
-ipcRenderer.on("episodeList", (event, datas) => {
-  // Creating Elements.
-  datas.forEach(data => {
-    const checkboxInput = document.createElement("input");
-    const checkboxLabel = document.createElement("label");
-    // Fixing/Adding attribte.
-    checkboxInput.type = "checkbox";
-    checkboxInput.id = `checkbox_${data}`;
-    checkboxLabel.innerText = data;
-    checkboxLabel.htmlFor = `checkbox_${data}`;
-    // Adding classes.
-    checkboxInput.classList.add('checkbox');
-    // Adding elements to parents.
-    optionContainer.appendChild(checkboxInput);
-    optionContainer.appendChild(checkboxLabel);
-    // Adding functions.
-    checkboxInput.addEventListener('change', () => {
-      // When checked add it to the selectedEpisodes array.
-      if(checkboxInput.checked) {
-        selectedEpisodes.push(data);
-      }
-      else {
-        // And remove it when it is unchecked.
-        selectedEpisodes = selectedEpisodes.filter(
-          episode => episode !== data
-        );
-      }
-    })
-  })
-});
 
 // HTML Events.
 downloadBetweenBtn.addEventListener("click", () => {
@@ -127,8 +101,40 @@ selectDownloadBtn.addEventListener("click", () => {
   // Make downloadButton visible.
   initialButtons.classList.add("hidden");
   selectDownload.classList.remove("hidden");
-  // Get episodes List
-  ipcRenderer.send("getEpisodeList", anime);
+  // Get episodes List and render them as options.
+  fetch(
+    `https://anidownserver.jameshedayet.repl.co/getepisodes?anime=${anime}`
+  )
+  .then(res => res.json())
+  .then(datas => {
+    // Creating Elements.
+    datas.forEach((data) => {
+      const checkboxInput = document.createElement("input");
+      const checkboxLabel = document.createElement("label");
+      // Fixing/Adding attribte.
+      checkboxInput.type = "checkbox";
+      checkboxInput.id = `checkbox_${data}`;
+      checkboxLabel.innerText = data;
+      checkboxLabel.htmlFor = `checkbox_${data}`;
+      // Adding classes.
+      checkboxInput.classList.add("checkbox");
+      // Adding elements to parents.
+      optionContainer.appendChild(checkboxInput);
+      optionContainer.appendChild(checkboxLabel);
+      // Adding functions.
+      checkboxInput.addEventListener("change", () => {
+        // When checked add it to the selectedEpisodes array.
+        if (checkboxInput.checked) {
+          selectedEpisodes.push(data);
+        } else {
+          // And remove it when it is unchecked.
+          selectedEpisodes = selectedEpisodes.filter(
+            (episode) => episode !== data
+          );
+        }
+      });
+    });
+  })
 });
 
 // Event for downloading episodes in range.
