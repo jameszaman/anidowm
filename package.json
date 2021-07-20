@@ -10,11 +10,14 @@
   },
   "author": "James Hedayet Zaman",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  },
   "build": {
     "appId": "com.james.anidown",
     "productName": "anidown",
-    "target": "NSIS"
+    "target": "NSIS",
+    "extraResources": "python"
   },
   "nsis": {
     "allowToChangeInstallationDirectory": "true",
