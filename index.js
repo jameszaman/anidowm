@@ -31,14 +31,14 @@ app.on('ready', () => {
     title: 'Anidown',
     webPreferences: {
       // *** Comment this line for testing. ***
-      // devTools: false,
+      devTools: false,
       // For working with node.
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
   mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
-  // Menu.setApplicationMenu(null)
+  Menu.setApplicationMenu(null)
 });
 
 // Events from window.
