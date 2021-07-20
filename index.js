@@ -7,6 +7,10 @@ require('dotenv').config();
 let mainWindow;
 let pythonPath;
 
+// Python dependencies
+spawn("pip", ["install", "bs4"]);
+spawn("pip", ["install", "requests"]);
+
 // Need different path for development and production.
 if(process.env.DEVELOPMENT) {
   pythonPath = "python/pyrun.py";
