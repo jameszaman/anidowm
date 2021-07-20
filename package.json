@@ -1,14 +1,27 @@
 {
-  "name": "electorn",
+  "name": "anidown",
   "version": "1.0.0",
-  "description": "",
+  "description": "An app to download stuff from internet.",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
-  "author": "",
+  "author": "James Hedayet Zaman",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^13.1.7"
+  "dependencies": {},
+  "build": {
+    "appId": "com.james.anidown",
+    "productName": "anidown",
+    "target": "NSIS"
+  },
+  "nsis": {
+    "allowToChangeInstallationDirectory": "true",
+    "oneClick": "false"
+  },
+  "devDependencies": {
+    "electron": "^13.1.7",
+    "electron-builder": "^22.11.7"
   }
 }

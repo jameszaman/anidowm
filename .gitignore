@@ -3,3 +3,4 @@ env/
 node_modules/
 ipcDiagram.png
 test.js
+dist/
