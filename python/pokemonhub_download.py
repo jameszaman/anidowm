@@ -1,6 +1,6 @@
 import requests
 import json
-from os import getcwd, listdir, mkdir
+from os import environ, listdir, mkdir
 
 # User defined modules.
 from download import download_file
@@ -41,12 +41,17 @@ def pokemonhub_download(urls):
       title = title.replace('\\', '|')
       
 
-      # Making sure the download folder exists.
-      target_folder = getcwd()
+      # Making sure the Downloads folder exists.
+      target_folder = f'C:{environ["HOMEPATH"]}'
       dir_list = listdir(target_folder)
-      if 'download' not in dir_list:
-        mkdir('download')
-      target_folder += '/download'
+      if 'Downloads' not in dir_list:
+        mkdir(f'{target_folder}/Downloads')
+      target_folder += '/Downloads'
+      # Making sure the Anidown folder exists.
+      dir_list = listdir(target_folder)
+      if 'Anidown' not in dir_list:
+        mkdir(f'{target_folder}/Anidown')
+      target_folder += '/Anidown'
       # Downloading the video.
       quality = urlData['quality'][-1]
       download_file(urlData[f's{quality}'], f'{target_folder}/{title}.mp4')

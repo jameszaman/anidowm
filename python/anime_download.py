@@ -2,7 +2,7 @@ import requests
 from urllib import request
 from download import download_file
 from bs4 import BeautifulSoup as soup
-from os import getcwd, listdir, mkdir
+from os import environ, listdir, mkdir
 
 def extract_url(script_string):
   url_start = script_string.find('var VidStreaming = "') + len('var VidStreaming = "')
@@ -62,7 +62,17 @@ def get_all_download_links(name):
 
 def make_anime_folder(name):
   # Destination where to save the videos.
-  target_folder = getcwd()
+  target_folder = f'C:{environ["HOMEPATH"]}'
+  # Making sure the Downloads folder exists.
+  dir_list = listdir(target_folder)
+  if 'Downloads' not in dir_list:
+    mkdir(f'{target_folder}/Downloads')
+  target_folder = f'{target_folder}/Downloads'
+  # Making sure the Anidown folder exists.
+  dir_list = listdir(target_folder)
+  if 'Anidown' not in dir_list:
+    mkdir(f'{target_folder}/Anidown')
+  target_folder = f'{target_folder}/Anidown'
 
   # Making a folder with number if that folder already exits.
   # Also setting that as the target folder.
@@ -74,8 +84,8 @@ def make_anime_folder(name):
       count += 1
       temp_name = f'{name}_{str(count)}'
     else:
-      mkdir(temp_name)
-      target_folder = f'{target_folder}/{temp_name}'
+      mkdir(f'{target_folder}/{temp_name}')
+      target_folder = f'{target_folder}\\{temp_name}'
       break
   return target_folder
 
@@ -84,6 +94,7 @@ def download_all_anime(name):
   urls = get_all_download_links(name)
   # Create a new folder where all the anime will be stored.
   target_folder = make_anime_folder(name)
+  print(target_folder)
   for url in urls:
     download_anime(url['href'], target_folder)
 

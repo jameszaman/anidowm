@@ -1,5 +1,4 @@
 import sys
-from os import getcwd
 from threading import Thread
 from anime_download import download_all_anime, download_select_episodes
 from search_anime import search_anime, get_episode_list
