@@ -8,8 +8,6 @@ from npokemon_download import npokemon_download
 if sys.argv[1] == 'downloadAll':
   t1 = Thread(target=download_all_anime, args=(sys.argv[2],))
   t1.start()
-elif sys.argv[1] == 'getEpisodeList':
-  print(get_episode_list(sys.argv[2]))
 elif sys.argv[1] == 'downloadBetween':
   # Got data as string. Converting it to proper structure.
   data = sys.argv[2].split(',')
