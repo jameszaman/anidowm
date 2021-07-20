@@ -1,16 +1,11 @@
 import sys
 from threading import Thread
 from anime_download import download_all_anime, download_select_episodes
-from search_anime import search_anime, get_episode_list
 from pokemonhub_download import pokemonhub_download
 from npokemon_download import npokemon_download
 
 # sys.argv[0] is fileName, 1 command, 2 is additional info.
-if sys.argv[1] == 'search':
-  name, img = search_anime(sys.argv[2])
-  print(f'{name}')
-  print(f'{img}')
-elif sys.argv[1] == 'downloadAll':
+if sys.argv[1] == 'downloadAll':
   t1 = Thread(target=download_all_anime, args=(sys.argv[2],))
   t1.start()
 elif sys.argv[1] == 'getEpisodeList':
