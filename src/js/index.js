@@ -53,11 +53,13 @@ searchForm.addEventListener("submit", (e) => {
         const downloadButton = document.createElement("button");
         // Adding data to elements.
         animeImage.src = datas[1][index];
+        animeImage.loading = "lazy";
         animeName.innerText = data;
         downloadButton.innerText = "Download";
         // Adding classes.
         searchResult.classList.add("search-result");
         animeImage.classList.add("anime-image");
+        animeImage.classList.add("anime-image-lazy");
         info.classList.add("info");
         downloadButton.classList.add("btn");
         // Adding events.

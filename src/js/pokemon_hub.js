@@ -26,11 +26,13 @@ function addSearchResult(data) {
   const downloadButton = document.createElement("button");
   // Adding data to elements.
   animeImage.src = data[1];
+  animeImage.loading = 'lazy';
   animeName.innerText = data[2];
   downloadButton.innerText = "Download";
   // Adding classes.
   searchResult.classList.add("search-result");
   animeImage.classList.add("anime-image");
+  animeImage.classList.add("pokemon-hub-image");
   info.classList.add("info");
   downloadButton.classList.add("btn");
   // Adding events.
