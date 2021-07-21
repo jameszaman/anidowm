@@ -83,19 +83,21 @@ fetch(
 // Events.
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Deleting previous results.
+  // Deleting previous results and clearing searchbar.
   deleteChilds(searchResultContainer);
+  const searchValue = searchText.value;
+  searchText.value = "";
 
   // Getting videos and showing them as result.
   fetch(
-    `https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo?search=${searchText.value}`
+    `https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo?search=${searchValue}`
   )
-  .then((res) => res.json())
-  .then((datas) => {
-    datas.forEach((data) => {
-      addSearchResult(data);
+    .then((res) => res.json())
+    .then((datas) => {
+      datas.forEach((data) => {
+        addSearchResult(data);
+      });
     });
-  });
 });
 
 deleteBtn.addEventListener("click", () => {
