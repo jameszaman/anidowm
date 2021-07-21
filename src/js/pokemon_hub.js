@@ -10,6 +10,12 @@ const downloadPopup = document.querySelector("#download-popup");
 const deleteBtn = document.querySelector("#delete-btn");
 const initialButtons = document.querySelector("#initial-buttons");
 
+// Global variables.
+let searchValue;
+let curPage = 1;
+let loadMoreFlag = true;
+
+
 // Functions.
 function deleteChilds(element) {
   while(element.firstChild) {
@@ -87,8 +93,9 @@ searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Deleting previous results and clearing searchbar.
   deleteChilds(searchResultContainer);
-  const searchValue = searchText.value;
+  searchValue = searchText.value;
   searchText.value = "";
+  curPage = 1;
 
   // Getting videos and showing them as result.
   fetch(
@@ -104,5 +111,25 @@ searchForm.addEventListener("submit", (e) => {
 
 deleteBtn.addEventListener("click", () => {
   downloadPopup.classList.add("hidden");
+});
+
+// Load more images on reaching end of page.
+window.addEventListener("scroll", () => {
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    if(loadMoreFlag) {
+      loadMoreFlag = false;
+      curPage++;
+      fetch(`
+        https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo?search=${searchValue}&page=${curPage}
+      `)
+      .then((res) => res.json())
+      .then((datas) => {
+        datas.forEach((data) => {
+          addSearchResult(data);
+        });
+        loadMoreFlag = true;
+      });
+    }
+  }
 });
 
