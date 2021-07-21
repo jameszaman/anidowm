@@ -1,6 +1,7 @@
 /* Common styling for all pages. */
 :root {
   --clr-primary: hsl(135, 100%, 75%);
+  --clr-secondary: hsl(135, 100%, 55%);
   --fnt-clr: hsl(83, 27%, 94%);
   --clr-black-primary: hsl(0, 0%, 21%);
   --clr-black-secondary: hsl(0, 0%, 31%);
@@ -53,6 +54,7 @@ nav > a:hover {
 }
 .btn:hover {
   cursor: pointer;
+  background-color: var(--clr-secondary);
 }
 .hidden {
   display: none;
