@@ -9,6 +9,7 @@ const searchResultContainer = document.querySelector("#search-result-container")
 const downloadPopup = document.querySelector("#download-popup");
 const deleteBtn = document.querySelector("#delete-btn");
 const initialButtons = document.querySelector("#initial-buttons");
+const headerVideo = document.querySelector("#header-video");
 
 // Global variables.
 let searchValue;
@@ -24,7 +25,7 @@ function deleteChilds(element) {
   }
 }
 
-function addSearchResult(data) {
+function addSearchResult(data, container) {
   // Creating elements.
   const searchResult = document.createElement("div");
   const animeImage = document.createElement("img");
@@ -33,7 +34,7 @@ function addSearchResult(data) {
   const downloadButton = document.createElement("button");
   // Adding data to elements.
   animeImage.src = data[1];
-  animeImage.loading = 'lazy';
+  animeImage.loading = "lazy";
   animeName.innerText = data[2];
   downloadButton.innerText = "Download";
   // Adding classes.
@@ -47,13 +48,13 @@ function addSearchResult(data) {
     fetch(
       `https://anidownserver.jameshedayet.repl.co/getpokemonhuburl?pokemon=${data[0]}`
     )
-    .then(res => res.json())
-    .then(data => {
-      downloadPopup.classList.remove('hidden');
+    .then((res) => res.json())
+    .then((data) => {
+      downloadPopup.classList.remove("hidden");
       // Delete all previous quality buttons.
       deleteChilds(initialButtons);
       // Add a button for each quality.
-      data["quality"].forEach(quality => {
+      data["quality"].forEach((quality) => {
         // Creating elements.
         const button = document.createElement("button");
         // Adding data to elements.
@@ -63,12 +64,15 @@ function addSearchResult(data) {
         // Adding events.
         button.addEventListener("click", () => {
           downloadPopup.classList.add("hidden");
-          ipcRenderer.send("downloadPokemonhub", [data[`s${quality}`], data['title']]);
+          ipcRenderer.send("downloadPokemonhub", [
+            data[`s${quality}`],
+            data["title"],
+          ]);
         });
         // Appending all the elements.
         initialButtons.appendChild(button);
-      })
-    })
+      });
+    });
   });
 
   animeImage.addEventListener("click", () => {
@@ -78,20 +82,28 @@ function addSearchResult(data) {
         data[0].split("viewkey=")[1]
       }`
     )
-      .then((res) => res.json())
-      .then((results) => {
-        deleteChilds(searchResultContainer);
-        results.forEach((result) => {
-          addSearchResult(result);
-        });
+    .then((res) => res.json())
+    .then((results) => {
+      // Changing the header video.
+      deleteChilds(headerVideo);
+      addSearchResult(data, headerVideo);
+      // Adding a hr line to differentiate them.
+      const hr = document.createElement("hr");
+      hr.classList.add('max-hr');
+      headerVideo.appendChild(hr);
+      // Changing search results.
+      deleteChilds(container);
+      results.forEach((result) => {
+        addSearchResult(result, searchResultContainer);
       });
+    });
   });
   // Appending all the elements.
   info.appendChild(animeName);
   info.appendChild(downloadButton);
   searchResult.appendChild(animeImage);
   searchResult.appendChild(info);
-  searchResultContainer.appendChild(searchResult);
+  container.appendChild(searchResult);
 }
 
 // Starting page videos.
@@ -102,7 +114,7 @@ fetch(
 .then((datas) => {
   if(!alreadySearched) {
     datas.forEach((data) => {
-      addSearchResult(data);
+      addSearchResult(data, searchResultContainer);
     });
   }
 });
@@ -124,7 +136,7 @@ searchForm.addEventListener("submit", (e) => {
     .then((res) => res.json())
     .then((datas) => {
       datas.forEach((data) => {
-        addSearchResult(data);
+        addSearchResult(data, searchResultContainer);
       });
     });
 });
@@ -145,7 +157,7 @@ window.addEventListener("scroll", () => {
       .then((res) => res.json())
       .then((datas) => {
         datas.forEach((data) => {
-          addSearchResult(data);
+          addSearchResult(data, searchResultContainer);
         });
         loadMoreFlag = true;
       });
