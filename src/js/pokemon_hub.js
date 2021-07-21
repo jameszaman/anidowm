@@ -14,6 +14,7 @@ const initialButtons = document.querySelector("#initial-buttons");
 let searchValue;
 let curPage = 1;
 let loadMoreFlag = true;
+let alreadySearched = false;
 
 
 // Functions.
@@ -83,19 +84,22 @@ fetch(
 )
 .then((res) => res.json())
 .then((datas) => {
-  datas.forEach((data) => {
-    addSearchResult(data);
-  });
+  if(!alreadySearched) {
+    datas.forEach((data) => {
+      addSearchResult(data);
+    });
+  }
 });
 
 // Events.
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Deleting previous results and clearing searchbar.
-  deleteChilds(searchResultContainer);
+  // Deleting previous results and reseting necessary variables.
+  alreadySearched = true;
   searchValue = searchText.value;
   searchText.value = "";
   curPage = 1;
+  deleteChilds(searchResultContainer);
 
   // Getting videos and showing them as result.
   fetch(
