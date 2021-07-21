@@ -70,6 +70,22 @@ function addSearchResult(data) {
       })
     })
   });
+
+  animeImage.addEventListener("click", () => {
+    // alert('Hey');
+    fetch(
+      `https://anidownserver.jameshedayet.repl.co/getpokemonhubrelatedvideo?viewkey=${
+        data[0].split("viewkey=")[1]
+      }`
+    )
+      .then((res) => res.json())
+      .then((results) => {
+        deleteChilds(searchResultContainer);
+        results.forEach((result) => {
+          addSearchResult(result);
+        });
+      });
+  });
   // Appending all the elements.
   info.appendChild(animeName);
   info.appendChild(downloadButton);

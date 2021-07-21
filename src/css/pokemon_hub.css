@@ -1,4 +1,5 @@
 .pokemon-hub-image {
   width: 320px;
   height: 180px;
+  cursor: pointer;
 }
