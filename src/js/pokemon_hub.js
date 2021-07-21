@@ -76,7 +76,7 @@ function addSearchResult(data, container) {
   });
 
   animeImage.addEventListener("click", () => {
-    // alert('Hey');
+    window.scrollTo(0, 0);
     fetch(
       `https://anidownserver.jameshedayet.repl.co/getpokemonhubrelatedvideo?viewkey=${
         data[0].split("viewkey=")[1]
@@ -128,6 +128,8 @@ searchForm.addEventListener("submit", (e) => {
   searchText.value = "";
   curPage = 1;
   deleteChilds(searchResultContainer);
+  // Deleting the header video.
+  deleteChilds(headerVideo);
 
   // Getting videos and showing them as result.
   fetch(
