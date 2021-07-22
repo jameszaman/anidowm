@@ -33,6 +33,7 @@
 .search-result {
   width: 20rem;
   margin: 1em 0.5em;
+  color: var(--fnt-clr);
 }
 .anime-image {
   width: 100%;
