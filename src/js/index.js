@@ -19,6 +19,7 @@ const downloadBetweenStart = document.querySelector("#download-between-start");
 const downloadBetweenEnd = document.querySelector("#download-between-end");
 const optionContainer = document.querySelector("#option-container");
 const deleteBtn = document.querySelector("#delete-btn");
+const body = document.querySelector("body");
 
 // Global variables.
 let anime;
@@ -155,3 +156,26 @@ downloadSelectEpisode.addEventListener("click", () => {
 deleteBtn.addEventListener("click", () => {
   downloadPopup.classList.add('hidden');
 })
+
+// Event for update window.
+ipcRenderer.on("will-update", () => {
+  // Deleteing everything else on screen first.
+  deleteChilds(body);
+
+  // Creating elements.
+  const updatePopupContainer = document.createElement("div");
+  const updatePopup = document.createElement("div");
+  const p1 = document.createElement("p");
+  const p2 = document.createElement("p");
+  // Adding data.
+  p1.innerText = "DOWNLOADING UPDATE...";
+  p2.innerText = "PLEASE WAIT...";
+  // Adding classes.
+  updatePopupContainer.classList.add("update-popup-container");
+  updatePopup.classList.add("update-popup");
+  // Appending childs.
+  updatePopup.appendChild(p1);
+  updatePopup.appendChild(p2);
+  updatePopupContainer.appendChild(updatePopup);
+  body.appendChild(updatePopupContainer);
+});

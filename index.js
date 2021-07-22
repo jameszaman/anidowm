@@ -2,6 +2,7 @@
 const { app, BrowserWindow, ipcMain, Menu } = require("electron");
 const { spawn } = require('child_process');
 const path = require('path');
+const { autoUpdater } = require("electron-updater");
 require('dotenv').config();
 
 let mainWindow;
@@ -48,6 +49,16 @@ app.on('ready', () => {
     },
   });
   mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
+  autoUpdater.checkForUpdates();
+});
+
+// Event for update.
+autoUpdater.on("update-downloaded", (info) => {
+  autoUpdater.quitAndInstall();
+});
+
+autoUpdater.on("update-available", (info) => {
+  mainWindow.webContents.send("will-update");
 });
 
 // Events from window.
