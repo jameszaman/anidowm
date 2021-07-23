@@ -49,17 +49,21 @@ app.on('ready', () => {
     },
   });
   mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
-  autoUpdater.checkForUpdates();
+  if (!process.env.DEVELOPMENT) {
+    autoUpdater.checkForUpdates();
+  }
 });
 
 // Event for update.
-autoUpdater.on("update-downloaded", (info) => {
-  autoUpdater.quitAndInstall();
-});
+if (!process.env.DEVELOPMENT) {
+  autoUpdater.on("update-downloaded", (info) => {
+    autoUpdater.quitAndInstall();
+  });
 
-autoUpdater.on("update-available", (info) => {
-  mainWindow.webContents.send("will-update");
-});
+  autoUpdater.on("update-available", (info) => {
+    mainWindow.webContents.send("will-update");
+  });
+}
 
 // Events from window.
 
