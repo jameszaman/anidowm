@@ -50,6 +50,9 @@ def make_anime_folder(name):
 def download_all_anime(name):
   # urls can't have space.
   url_name = name.replace(' ', '+')
+  # folder name and urls cannot have :
+  url_name = url_name.replace(':', '') # for url.
+  name = name.replace(':', '') # for name.
   # get all the episode liks for the anime.
   user_agent = 'Mozilla/5.0'
   url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url_name}'
