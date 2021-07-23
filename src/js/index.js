@@ -111,7 +111,7 @@ selectDownloadBtn.addEventListener("click", () => {
   .then(res => res.json())
   .then(datas => {
     // Creating Elements.
-    datas.forEach((data) => {
+    datas.forEach((data, index) => {
       const checkboxInput = document.createElement("input");
       const checkboxLabel = document.createElement("label");
       // Fixing/Adding attribte.
@@ -128,11 +128,11 @@ selectDownloadBtn.addEventListener("click", () => {
       checkboxInput.addEventListener("change", () => {
         // When checked add it to the selectedEpisodes array.
         if (checkboxInput.checked) {
-          selectedEpisodes.push(data);
+          selectedEpisodes.push(index);
         } else {
           // And remove it when it is unchecked.
           selectedEpisodes = selectedEpisodes.filter(
-            (episode) => episode !== data
+            (episode) => episode !== index
           );
         }
       });
