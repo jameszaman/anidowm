@@ -17,6 +17,7 @@ elif sys.argv[1] == 'downloadBetween':
 elif sys.argv[1] == 'downloadSelect':
   # Got data as string. Converting it to proper structure.
   data = sys.argv[2].split(',')
+  # we exlcude the first element as that is the name. We pass it separately.
   episodeArray = [int(data[i]) for i in range(len(data)) if i > 0]
   t1 = Thread(target=download_select_episodes, args=(data[0], episodeArray))
   t1.start()

@@ -75,7 +75,7 @@ def download_select_episodes(name, episodes):
   if type(episodes) == list:
     for i in episodes:
       if i < len(urls):
-        download_anime(urls[i - 1], target_folder)
+        download_anime(urls[i], target_folder)
   # Tuple means start and end of episodes to download.
   elif type(episodes) == tuple:
     for i in range(episodes[0], episodes[1] + 1):
