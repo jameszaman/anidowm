@@ -65,7 +65,8 @@ searchForm.addEventListener("submit", (e) => {
         downloadButton.classList.add("btn");
         // Adding events.
         downloadButton.addEventListener("click", () => {
-          anime = data;
+          // folder name and urls cannot have :
+          anime = data.replace(":", '');
           selectedEpisodes = [];
           downloadPopup.classList.remove("hidden");
           initialButtons.classList.remove("hidden");
