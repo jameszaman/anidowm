@@ -1,6 +1,6 @@
 {
   "name": "anidown",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An app to download stuff from internet.",
   "main": "index.js",
   "scripts": {
