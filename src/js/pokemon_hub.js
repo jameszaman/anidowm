@@ -14,7 +14,7 @@ const headerVideo = document.querySelector("#header-video");
 // Global variables.
 let searchValue;
 let curPage = 1;
-let loadMoreFlag = true;
+let loadMoreFlag = false;
 let alreadySearched = false;
 
 
@@ -76,7 +76,10 @@ function addSearchResult(data, container) {
   });
 
   animeImage.addEventListener("click", () => {
+    // Reseting necessary values.
     window.scrollTo(0, 0);
+    loadMoreFlag = false;
+    // Getting related videos.
     fetch(
       `https://anidownserver.jameshedayet.repl.co/getpokemonhubrelatedvideo?viewkey=${
         data[0].split("viewkey=")[1]
@@ -120,6 +123,7 @@ fetch(
 });
 
 // Events.
+// Search in Pokemonhub.
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Deleting previous results and reseting necessary variables.
@@ -127,6 +131,7 @@ searchForm.addEventListener("submit", (e) => {
   searchValue = searchText.value;
   searchText.value = "";
   curPage = 1;
+  loadMoreFlag = true;
   deleteChilds(searchResultContainer);
   // Deleting the header video.
   deleteChilds(headerVideo);
