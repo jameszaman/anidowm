@@ -66,7 +66,8 @@ searchForm.addEventListener("submit", (e) => {
         // Adding events.
         downloadButton.addEventListener("click", () => {
           // folder name and urls cannot have :
-          anime = data.replace(":", '');
+          // First is the name, second is the url.
+          anime = [data.replace(":", ''), datas[2][index]];
           selectedEpisodes = [];
           downloadPopup.classList.remove("hidden");
           initialButtons.classList.remove("hidden");
@@ -107,7 +108,7 @@ selectDownloadBtn.addEventListener("click", () => {
   selectDownload.classList.remove("hidden");
   // Get episodes List and render them as options.
   fetch(
-    `https://anidownserver.jameshedayet.repl.co/getepisodes?anime=${anime}`
+    `https://anidownserver.jameshedayet.repl.co/getepisodes?anime=${anime[1]}`
   )
   .then(res => res.json())
   .then(datas => {
@@ -144,8 +145,8 @@ selectDownloadBtn.addEventListener("click", () => {
 // Event for downloading episodes in range.
 downloadBetweenEpisode.addEventListener("click", () => {
   downloadPopup.classList.add("hidden");
-  ipcRenderer.send("downloadBetween", [anime,
-    [downloadBetweenStart.value, downloadBetweenEnd.value]
+  ipcRenderer.send("downloadBetween", [anime[0], anime[1],
+    downloadBetweenStart.value, downloadBetweenEnd.value
   ]);
 });
 

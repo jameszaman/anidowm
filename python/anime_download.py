@@ -47,12 +47,11 @@ def make_anime_folder(name):
       break
   return target_folder
 
-def download_all_anime(name):
+def download_all_anime(name, url):
   # urls can't have space.
-  url_name = name.replace(' ', '+')
   # get all the episode liks for the anime.
   user_agent = 'Mozilla/5.0'
-  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url_name}'
+  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url}'
   # Convert the byte response to a list.
   urls = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode().replace('"', '')[1:-2].split(',')
   # Create a new folder where all the anime will be stored.
@@ -60,12 +59,11 @@ def download_all_anime(name):
   for url in urls:
     download_anime(url, target_folder)
 
-def download_select_episodes(name, episodes):
+def download_select_episodes(name, url, episodes):
   # urls can't have space.
-  url_name = name.replace(' ', '+')
   # get all the episode liks for the anime.
   user_agent = 'Mozilla/5.0'
-  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url_name}'
+  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url}'
   # Convert the byte response to a list.
   urls = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode().replace('"', '')[1:-2].split(',')
   # Create a new folder where all the anime will be stored.
