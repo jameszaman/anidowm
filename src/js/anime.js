@@ -66,8 +66,9 @@ searchForm.addEventListener("submit", (e) => {
         // Adding events.
         downloadButton.addEventListener("click", () => {
           // folder name and urls cannot have :
+          // Some anime has extra spaces at start/end which creates problems.
           // First is the name, second is the url.
-          anime = [data.replace(":", ''), datas[2][index]];
+          anime = [data.replace(":", '').trim(), datas[2][index]];
           selectedEpisodes = [];
           downloadPopup.classList.remove("hidden");
           initialButtons.classList.remove("hidden");

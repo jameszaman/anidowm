@@ -48,7 +48,7 @@ app.on('ready', () => {
       contextIsolation: false,
     },
   });
-  mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
+  mainWindow.loadURL(`file:\\\\${__dirname}\\views\\anime.html`);
   if (!process.env.DEVELOPMENT) {
     autoUpdater.checkForUpdates();
   }
