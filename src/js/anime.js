@@ -35,13 +35,14 @@ function deleteChilds(element) {
 // Electron events.
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const searchValue = searchText.value;
+  searchText.value = "";
   fetch(`
-    https://anidownserver.jameshedayet.repl.co/searchanimes?anime=${searchText.value}
+    https://anidownserver.jameshedayet.repl.co/searchanimes?anime=${searchValue}
   `)
     .then((res) => res.json())
     .then((datas) => {
       // Clearing previous search results and searchbar.
-      searchText.value = ''
       deleteChilds(searchResultContainer);
 
       // Adding all the data to the page.
@@ -68,7 +69,7 @@ searchForm.addEventListener("submit", (e) => {
           // folder name and urls cannot have :
           // Some anime has extra spaces at start/end which creates problems.
           // First is the name, second is the url.
-          anime = [data.replace(":", '').trim(), datas[2][index]];
+          anime = [data.replace(":", "").trim(), datas[2][index]];
           selectedEpisodes = [];
           downloadPopup.classList.remove("hidden");
           initialButtons.classList.remove("hidden");
