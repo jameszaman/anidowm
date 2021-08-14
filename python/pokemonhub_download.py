@@ -12,6 +12,7 @@ def pokemonhub_download(url, title):
     title = title.replace('\t', '')
     title = title.replace('/', '')
     title = title.replace('\\', '')
+    title = title.replace(':', "")
     title = title.replace('"', "'")
     
 
