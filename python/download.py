@@ -1,4 +1,6 @@
+import sys
 import requests
+from threading import Thread
 
 def download_file(url, local_filename):
   user_agent = 'Mozilla/5.0'
@@ -12,3 +14,9 @@ def download_file(url, local_filename):
         #if chunk: 
         f.write(chunk)
   return local_filename
+
+# If any parameter is passed, download from that link.
+if(sys.argv[1] and sys.argv[2]):
+  # Download the file using a new thread.
+  t1 = Thread(target=download_file, args=(sys.argv[1], sys.argv[2]))
+  t1.start()

@@ -5,6 +5,9 @@ const path = require('path');
 const { autoUpdater } = require("electron-updater");
 require('dotenv').config();
 
+// Importing user defined modules.
+const { downloadAll } = require('./functions/animeDownload');
+
 let mainWindow;
 let pythonPath;
 
@@ -30,6 +33,8 @@ function strToArray(str) {
 
 // App event.
 app.on('ready', () => {
+  // Setting the app path as global variable.
+  global.appPath = app.getAppPath();
   // Different settings for production and development.
   let devTools = true;
   if (!process.env.DEVELOPMENT) {
@@ -69,7 +74,7 @@ if (!process.env.DEVELOPMENT) {
 
 // Might try to turn this 4 into 1 function.
 ipcMain.on('downloadAll', (event, data) => {
-  spawn("python", [pythonPath, "downloadAll", data]);
+  downloadAll(data[0], data[1]);
 });
 ipcMain.on("downloadBetween", (event, data) => {
   spawn("python", [pythonPath, "downloadBetween", data]);

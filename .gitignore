@@ -2,6 +2,6 @@ __pycache__/
 env/
 node_modules/
 ipcDiagram.png
-test.js
+test/
 dist/
 .env
