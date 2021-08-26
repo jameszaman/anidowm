@@ -7,10 +7,10 @@ from os import environ, listdir, mkdir
 
 def download_anime(anime, target_folder):
   # Necessary variables.
-  url = f'https://anidownserver.jameshedayet.repl.co/getanimeurl?anime={anime}'
-  user_agent = 'Mozilla/5.0'
+  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadurl?anime={anime}'
+  user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0'
   # Get the video url from server and parse it.
-  video_url = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode()[1:-2]
+  video_url = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode()
   try:
     # Download the video.
     download_file(video_url, f'{target_folder}/{anime}.mp4')
@@ -51,7 +51,7 @@ def download_all_anime(name, url):
   # urls can't have space.
   # get all the episode liks for the anime.
   user_agent = 'Mozilla/5.0'
-  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url}'
+  url = f'https://anidownserver.jameshedayet.repl.co/getanimeepisodelink?anime={url}'
   # Convert the byte response to a list.
   urls = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode().replace('"', '')[1:-2].split(',')
   # Create a new folder where all the anime will be stored.
@@ -63,12 +63,12 @@ def download_select_episodes(name, url, episodes):
   # urls can't have space.
   # get all the episode liks for the anime.
   user_agent = 'Mozilla/5.0'
-  url = f'https://anidownserver.jameshedayet.repl.co/getanimedownloadlink?anime={url}'
+  url = f'https://anidownserver.jameshedayet.repl.co/getanimeepisodelink?anime={url}'
   # Convert the byte response to a list.
   urls = request.urlopen(request.Request(f'{url}', data=None, headers={'User-Agent': user_agent})).read().decode().replace('"', '')[1:-2].split(',')
   # Create a new folder where all the anime will be stored.
   target_folder = make_anime_folder(name)
-
+  print('Reached here')
   # If an array is given, download all episodes in that array.
   if type(episodes) == list:
     for i in episodes:
