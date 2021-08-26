@@ -5,3 +5,4 @@ ipcDiagram.png
 test/
 dist/
 .env
+package-lock.json

@@ -2,6 +2,10 @@ import sys
 import requests
 from threading import Thread
 
+def to_list(string):
+  string = string[1:-1]
+  return string.split(',')
+
 def download_file(url, local_filename):
   user_agent = 'Mozilla/5.0'
   # NOTE the stream=True parameter below
@@ -15,8 +19,21 @@ def download_file(url, local_filename):
         f.write(chunk)
   return local_filename
 
+def download_multiple(urls, local_filenames):
+  for i in range(len(urls)):
+    download_file(urls[i], local_filenames[i])
+
 # If any parameter is passed, download from that link.
 if(sys.argv[1] and sys.argv[2]):
-  # Download the file using a new thread.
-  t1 = Thread(target=download_file, args=(sys.argv[1], sys.argv[2]))
-  t1.start()
+  if sys.argv[1][0] == '[' and sys.argv[1][-1] == ']':
+    if sys.argv[2][0] == '[' and sys.argv[2][-1] == ']':
+      urls = to_list(sys.argv[1])
+      names = to_list(sys.argv[2])
+      t1 = Thread(target=download_multiple, args=(urls, names))
+      t1.start()
+    else:
+      print('Error: Both of the arguments should be lists.')
+  else:
+    # Download the file using a new thread.
+    t1 = Thread(target=download_file, args=(sys.argv[1], sys.argv[2]))
+    t1.start()

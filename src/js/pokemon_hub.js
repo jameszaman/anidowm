@@ -80,7 +80,6 @@ function addSearchResult(data, container) {
     window.scrollTo(0, 0);
     loadMoreFlag = false;
     // Getting related videos.
-    console.log(data[0]);
     fetch(
       `https://anidownserver.jameshedayet.repl.co/getpokemonhubrelatedvideo?viewkey=${
         data[0].split("viewkey=")[1]
