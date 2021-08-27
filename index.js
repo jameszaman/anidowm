@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // Importing user defined modules.
 const { downloadAll, downloadSelect } = require('./functions/animeDownload');
+const pokemonhubDownload = require('./functions/pokemonhubDownload');
 
 let mainWindow;
 let pythonPath;
@@ -89,7 +90,7 @@ ipcMain.on("downloadSelect", (event, data) => {
   downloadSelect(data[0][0], data[0][1], data[1]);
 });
 ipcMain.on("downloadPokemonhub", (event, data) => {
-  spawn("python", [pythonPath, "downloadPokemonhub", data]);
+  pokemonhubDownload(data[0], data[1]);
 });
 ipcMain.on("NPokemonDownload", (event, data) => {
   spawn("python", [pythonPath, "NPokemonDownload", data[0], data[1]]);
