@@ -38,5 +38,29 @@ async function downloadAll(name, url) {
   download(download_urls, anime_names);
 }
 
+async function downloadSelect(name, url, episodeList) {
+  // Extracting all the episode links.
+  url = `https://anidownserver.jameshedayet.repl.co/getanimeepisodelink?anime=${url}`;
+  let episode_urls = await axios.get(url);
+  episode_urls = episode_urls.data;
+
+  // Creating the folder for storing the anime.
+  target_foler = makeFolder([name]);
+
+  const anime_names = [];
+  const download_urls = [];
+  for(index of episodeList) {
+    // The filename for the animes.
+    const episode = episode_urls[index].split("episode-")[1];
+    anime_names.push(`${target_foler}/${name} ${episode}.mp4`);
+    // Download urls for the anime.
+    url = `https://anidownserver.jameshedayet.repl.co/getanimedownloadurl?anime=${episode_urls[index]}`;
+    let video_url = await axios.get(url);
+    download_urls.push(video_url.data);
+  }
+  // Downloading all the episodes.
+  download(download_urls, anime_names);
+}
 
 module.exports.downloadAll = downloadAll;
+module.exports.downloadSelect = downloadSelect;

@@ -6,7 +6,7 @@ const { autoUpdater } = require("electron-updater");
 require('dotenv').config();
 
 // Importing user defined modules.
-const { downloadAll } = require('./functions/animeDownload');
+const { downloadAll, downloadSelect } = require('./functions/animeDownload');
 
 let mainWindow;
 let pythonPath;
@@ -46,7 +46,6 @@ app.on('ready', () => {
     minWidth: 600,
     title: 'Anidown',
     webPreferences: {
-      // *** Comment this line for testing. ***
       devTools,
       // For working with node.
       nodeIntegration: true,
@@ -77,10 +76,17 @@ ipcMain.on('downloadAll', (event, data) => {
   downloadAll(data[0], data[1]);
 });
 ipcMain.on("downloadBetween", (event, data) => {
-  spawn("python", [pythonPath, "downloadBetween", data]);
+  const start = Number(data[2]) - 1;
+  const end = Number(data[3]) - 1;
+  const episodeList = [];
+  for(let i = start; i <= end; i++) {
+    episodeList.push(i);
+  }
+  downloadSelect(data[0], data[1], episodeList);
+  // spawn("python", [pythonPath, "downloadBetween", data]);
 });
 ipcMain.on("downloadSelect", (event, data) => {
-  spawn("python", [pythonPath, "downloadSelect", data]);
+  downloadSelect(data[0][0], data[0][1], data[1]);
 });
 ipcMain.on("downloadPokemonhub", (event, data) => {
   spawn("python", [pythonPath, "downloadPokemonhub", data]);
