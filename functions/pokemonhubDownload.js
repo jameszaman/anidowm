@@ -20,8 +20,8 @@ async function downloadPokemon(url, title) {
 
   // Making sure the Downloads/Anidown folder exists.
   // Also getting the path.
-  target_foler = makeFolder();
-  download(url, `${target_foler}/${title}.mp4`);
+  targetFolder = makeFolder();
+  download(url, `${targetFolder}/${title}.mp4`);
 }
 
 module.exports = downloadPokemon;

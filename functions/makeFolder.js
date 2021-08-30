@@ -2,6 +2,10 @@ const os = require('os');
 const fs = require('fs');
 
 module.exports = function(names = []) {
+  // Making sure that names is in array format.
+  if(!Array.isArray(names)) {
+    names = [names];
+  }
   // Start creating folders from here. This is home path.
   let targetFolder = os.homedir();
   // Creating all the folders. Each folder will be inside the directory
