@@ -1,6 +1,3 @@
-// Importing necessary modules.
-const axios = require("axios");
-
 // User defined modules.
 const makeFolder = require("./makeFolder.js");
 const download = require("./download.js");

@@ -1,9 +1,7 @@
-// Importing necessary modules.
-const axios = require("axios");
-
 // User defined modules.
 const makeFolder = require("./makeFolder.js");
 const download = require("./download.js");
+const sanatize = require("./sanatize.js");
 
 // This is necessary for some websites.
 const user_agent =
@@ -11,12 +9,7 @@ const user_agent =
 
 async function downloadPokemon(url, title) {
   // Satatizing title.
-  title = title.replace(/\n/g, "");
-  title = title.replace(/\t/g, "");
-  title = title.replace(/\//g, "");
-  title = title.replace(/\\/g, "");
-  title = title.replace(/:/g, "");
-  title = title.replace(/"/g, "'");
+  title = sanatize(title);
 
   // Making sure the Downloads/Anidown folder exists.
   // Also getting the path.

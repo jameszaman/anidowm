@@ -2,8 +2,9 @@
 const axios = require('axios');
 
 // User defined modules.
-const makeFolder = require('./makeFolder.js');
-const download = require('./download.js');
+const makeFolder = require('./makeFolder');
+const download = require('./download');
+const sanatize = require('./sanatize');
 
 // This is necessary for some websites.
 const user_agent =
@@ -16,6 +17,9 @@ async function downloadAll(name, url) {
   let episode_urls = await axios.get(url);
   episode_urls = episode_urls.data;
 
+  // Sanatizing name.
+  name = sanatize(name);
+
   // Creating the folder for storing the anime.
   target_foler = makeFolder([name]);
 
@@ -25,6 +29,7 @@ async function downloadAll(name, url) {
     const episode = url.split("episode-")[1];
     anime_names.push(`${target_foler}/${name} ${episode}.mp4`);
   });
+  
   // Download urls for all anime
   const download_urls = [];
   
