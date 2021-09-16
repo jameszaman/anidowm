@@ -18,20 +18,20 @@ singleDownloadBtn.addEventListener("click", () => {
   fetch(`${url}/getnpokemonurls?id=${tempSuace}`)
     .then((res) => res.json())
     .then((data) => {
-      ipcRenderer.send("NPokemonDownload", data);
+      downloadNPokemon(data[0], data[1]);
     });
 });
 
-rangeDownloadBtn.addEventListener("click", () => {
+rangeDownloadBtn.addEventListener("click", async () => {
   const tempStart = start.value;
   const tempEnd = end.value;
   start.value = '';
   end.value = '';
   for(let i = Number(tempStart); i <= Number(tempEnd); ++i) {
-    fetch(`${url}/getnpokemonurls?id=${i}`)
+    await fetch(`${url}/getnpokemonurls?id=${i}`)
     .then((res) => res.json())
     .then((data) => {
-        ipcRenderer.send("NPokemonDownload", data);
+      downloadNPokemon(data[0], data[1]);
     });
   }
 });

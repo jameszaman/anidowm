@@ -71,7 +71,3 @@ if (!process.env.DEVELOPMENT) {
   });
 }
 
-// Events from window.
-ipcMain.on("NPokemonDownload", (event, data) => {
-  NPokemonDownload(data[0], data[1]);
-});
