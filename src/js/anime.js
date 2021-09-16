@@ -84,12 +84,11 @@ searchForm.addEventListener("submit", (e) => {
         searchResultContainer.appendChild(searchResult);
       });
     });
-  // ipcRenderer.send("search", searchText.value);
 });
 
 downloadAllBtn.addEventListener("click", () => {
   downloadPopup.classList.add("hidden");
-  ipcRenderer.send("downloadAll", anime);
+  downloadAll(anime[0], anime[1]);
 });
 
 // When recived the episodes list,
@@ -147,15 +146,21 @@ selectDownloadBtn.addEventListener("click", () => {
 // Event for downloading episodes in range.
 downloadBetweenEpisode.addEventListener("click", () => {
   downloadPopup.classList.add("hidden");
-  ipcRenderer.send("downloadBetween", [anime[0], anime[1],
-    downloadBetweenStart.value, downloadBetweenEnd.value
-  ]);
+  // Converting the range into an array.
+  const episodeList = [];
+  const start = Number(downloadBetweenStart.value) - 1;
+  const end = Number(downloadBetweenEnd.value) - 1;
+  for (let i = start; i <= end; i++) {
+    episodeList.push(i);
+  }
+  // Downloading the episode.
+  downloadSelect(anime[0], anime[1], episodeList);
 });
 
 // Event for downloading selected episodes.
 downloadSelectEpisode.addEventListener("click", () => {
   downloadPopup.classList.add("hidden");
-  ipcRenderer.send("downloadSelect", [anime, selectedEpisodes]);
+  downloadSelect(anime[0], anime[1], selectedEpisodes);
 });
 deleteBtn.addEventListener("click", () => {
   downloadPopup.classList.add('hidden');

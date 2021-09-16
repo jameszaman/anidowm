@@ -72,27 +72,6 @@ if (!process.env.DEVELOPMENT) {
 }
 
 // Events from window.
-
-// Might try to turn this 4 into 1 function.
-ipcMain.on('downloadAll', (event, data) => {
-  downloadAll(data[0], data[1]);
-});
-ipcMain.on("downloadBetween", (event, data) => {
-  const start = Number(data[2]) - 1;
-  const end = Number(data[3]) - 1;
-  const episodeList = [];
-  for(let i = start; i <= end; i++) {
-    episodeList.push(i);
-  }
-  downloadSelect(data[0], data[1], episodeList);
-  // spawn("python", [pythonPath, "downloadBetween", data]);
-});
-ipcMain.on("downloadSelect", (event, data) => {
-  downloadSelect(data[0][0], data[0][1], data[1]);
-});
-ipcMain.on("downloadPokemonhub", (event, data) => {
-  pokemonhubDownload(data[0], data[1]);
-});
 ipcMain.on("NPokemonDownload", (event, data) => {
   NPokemonDownload(data[0], data[1]);
 });
