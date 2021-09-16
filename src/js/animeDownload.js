@@ -63,7 +63,6 @@ async function downloadSelect(name, url, episodeList) {
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }
-  console.log(download_urls);
   // Downloading all the episodes.
   download(download_urls, anime_names);
 }

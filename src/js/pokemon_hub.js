@@ -1,6 +1,5 @@
 // Setting up electron.
 const electron = require("electron");
-const { ipcRenderer } = electron;
 
 // Selecting elements.
 const searchText = document.querySelector("#search-text");
@@ -64,11 +63,7 @@ function addSearchResult(data, container) {
         // Adding events.
         button.addEventListener("click", () => {
           downloadPopup.classList.add("hidden");
-          console.log(data[`${quality}`], data["title"]);
-          ipcRenderer.send("downloadPokemonhub", [
-            data[`${quality}`],
-            data["title"],
-          ]);
+          downloadPokemon(data[`${quality}`], data["title"]);
         });
         // Appending all the elements.
         initialButtons.appendChild(button);

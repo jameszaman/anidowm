@@ -3,7 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 
-module.exports = function (url, name) {
+function download(url, name) {
   // This is the path for python download file.
   // Need different path for development and production.
   // *** This needs to be inside the function,***

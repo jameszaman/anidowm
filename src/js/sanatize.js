@@ -1,4 +1,4 @@
-module.exports = function(name) {
+function sanatize(name) {
   name = name.replace(/\n/g, "");
   name = name.replace(/\t/g, "");
   name = name.replace(/\//g, "");
