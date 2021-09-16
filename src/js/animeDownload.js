@@ -13,7 +13,7 @@ const user_agent =
 
 async function downloadAll(name, url) {
   // Extracting all the episode links.
-  url = `https://anidownserver.jameshedayet.repl.co/getanimeepisodelink?anime=${url}`;
+  url = `https://anidown.herokuapp.com/getanimeepisodelink?anime=${url}`;
   let episode_urls = await axios.get(url);
   episode_urls = episode_urls.data;
 
@@ -34,7 +34,7 @@ async function downloadAll(name, url) {
   const download_urls = [];
   
   for (anime of episode_urls) {
-    url = `https://anidownserver.jameshedayet.repl.co/getanimedownloadurl?anime=${anime}`;
+    url = `https://anidown.herokuapp.com/getanimedownloadurl?anime=${anime}`;
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }
@@ -45,7 +45,7 @@ async function downloadAll(name, url) {
 
 async function downloadSelect(name, url, episodeList) {
   // Extracting all the episode links.
-  url = `https://anidownserver.jameshedayet.repl.co/getanimeepisodelink?anime=${url}`;
+  url = `https://anidown.herokuapp.com/getanimeepisodelink?anime=${url}`;
   let episode_urls = await axios.get(url);
   episode_urls = episode_urls.data;
 
@@ -59,7 +59,7 @@ async function downloadSelect(name, url, episodeList) {
     const episode = episode_urls[index].split("episode-")[1];
     anime_names.push(`${target_foler}/${name} ${episode}.mp4`);
     // Download urls for the anime.
-    url = `https://anidownserver.jameshedayet.repl.co/getanimedownloadurl?anime=${episode_urls[index]}`;
+    url = `https://anidown.herokuapp.com/getanimedownloadurl?anime=${episode_urls[index]}`;
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }

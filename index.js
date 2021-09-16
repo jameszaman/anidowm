@@ -6,9 +6,9 @@ const { autoUpdater } = require("electron-updater");
 require('dotenv').config();
 
 // Importing user defined modules.
-const { downloadAll, downloadSelect } = require('./functions/animeDownload');
-const pokemonhubDownload = require('./functions/pokemonhubDownload');
-const NPokemonDownload = require('./functions/npokemonDownload');
+const { downloadAll, downloadSelect } = require('./src/js/animeDownload');
+const pokemonhubDownload = require('./src/js/pokemonhubDownload');
+const NPokemonDownload = require('./src/js/npokemonDownload');
 
 let mainWindow;
 let pythonPath;

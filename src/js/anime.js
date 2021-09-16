@@ -38,7 +38,7 @@ searchForm.addEventListener("submit", (e) => {
   const searchValue = searchText.value;
   searchText.value = "";
   fetch(`
-    https://anidownserver.jameshedayet.repl.co/searchanimes?anime=${searchValue}
+    https://anidown.herokuapp.com/searchanimes?anime=${searchValue}
   `)
     .then((res) => res.json())
     .then((datas) => {
@@ -110,7 +110,7 @@ selectDownloadBtn.addEventListener("click", () => {
   selectDownload.classList.remove("hidden");
   // Get episodes List and render them as options.
   fetch(
-    `https://anidownserver.jameshedayet.repl.co/getepisodes?anime=${anime[1]}`
+    `https://anidown.herokuapp.com/getepisodes?anime=${anime[1]}`
   )
   .then(res => res.json())
   .then(datas => {

@@ -46,7 +46,7 @@ function addSearchResult(data, container) {
   // Adding events.
   downloadButton.addEventListener("click", () => {
     fetch(
-      `https://anidownserver.jameshedayet.repl.co/getpokemonhuburl?pokemon=${data[0]}`
+      `https://anidown.herokuapp.com/getpokemonhuburl?pokemon=${data[0]}`
     )
     .then((res) => res.json())
     .then((data) => {
@@ -64,8 +64,9 @@ function addSearchResult(data, container) {
         // Adding events.
         button.addEventListener("click", () => {
           downloadPopup.classList.add("hidden");
+          console.log(data[`${quality}`], data["title"]);
           ipcRenderer.send("downloadPokemonhub", [
-            data[`s${quality}`],
+            data[`${quality}`],
             data["title"],
           ]);
         });
@@ -81,7 +82,7 @@ function addSearchResult(data, container) {
     loadMoreFlag = false;
     // Getting related videos.
     fetch(
-      `https://anidownserver.jameshedayet.repl.co/getpokemonhubrelatedvideo?viewkey=${
+      `https://anidown.herokuapp.com/getpokemonhubrelatedvideo?viewkey=${
         data[0].split("viewkey=")[1]
       }`
     )
@@ -111,7 +112,7 @@ function addSearchResult(data, container) {
 
 // Starting page videos.
 fetch(
-  `https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo`
+  `https://anidown.herokuapp.com/getpokemonhubvideo`
 )
 .then((res) => res.json())
 .then((datas) => {
@@ -138,7 +139,7 @@ searchForm.addEventListener("submit", (e) => {
 
   // Getting videos and showing them as result.
   fetch(
-    `https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo?search=${searchValue}`
+    `https://anidown.herokuapp.com/getpokemonhubvideo?search=${searchValue}`
   )
     .then((res) => res.json())
     .then((datas) => {
@@ -159,7 +160,7 @@ window.addEventListener("scroll", () => {
       loadMoreFlag = false;
       curPage++;
       fetch(`
-        https://anidownserver.jameshedayet.repl.co/getpokemonhubvideo?search=${searchValue}&page=${curPage}
+        https://anidown.herokuapp.com/getpokemonhubvideo?search=${searchValue}&page=${curPage}
       `)
       .then((res) => res.json())
       .then((datas) => {

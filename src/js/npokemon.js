@@ -10,7 +10,7 @@ let end = document.querySelector("#end");
 const rangeDownloadBtn = document.querySelector("#range-download-btn");
 
 // Necessary variables.
-const url = "https://anidownserver.jameshedayet.repl.co";
+const url = "https://anidown.herokuapp.com";
 
 singleDownloadBtn.addEventListener("click", () => {
   const tempSuace = sauce.value;
