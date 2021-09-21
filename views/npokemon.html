@@ -11,12 +11,12 @@
 <body>
   <nav>
     <div class="nav-container">
-      <a href="./pokemon_hub.html">Pokemon Hub</a>
-      <a href="./anime.html">Anime</a>
+      <a class="navitem" href="./pokemon_hub.html">Pokemon Hub</a>
+      <a class="navitem" href="./anime.html">Anime</a>
     </div>
     <div class="nav-dropdown-container">
-      <button class="dropdown-button">&#9776;</button>
-      <div class="nav-dropdown hidden">
+      <button class="dropdown-button" id="dropdown-button">&#9776;</button>
+      <div class="nav-dropdown hidden" id="nav-dropdown">
         <!-- Add with Javascript -->
       </div>
     </div>
@@ -33,6 +33,7 @@
       <button id="range-download-btn">Download</button>
     </div>
   </div>
+  <script type="text/javascript" src="../src/js/nav.js"></script>
   <script type="text/javascript" src="../src/js/downloadProgress.js"></script>
   <script type="text/javascript" src="../src/js/makeFolder.js"></script>
   <script type="text/javascript" src="../src/js/sanatize.js"></script>
