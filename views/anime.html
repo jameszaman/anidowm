@@ -14,8 +14,16 @@
 </head>
 <body>
   <nav>
-    <a href="./pokemon_hub.html">Pokemon Hub</a>
-    <a href="./npokemon.html">npokemon</a>
+    <div class="nav-container">
+      <a class="navitem" href="./pokemon_hub.html">Pokemon Hub</a>
+      <a class="navitem" href="./npokemon.html">npokemon</a>
+    </div>
+    <div class="nav-dropdown-container">
+      <button class="dropdown-button">&#9776;</button>
+      <div class="nav-dropdown hidden">
+        <!-- Add with Javascript -->
+      </div>
+    </div>
   </nav>
   <form class="searchbar-container" id="search-form">
     <input class="search-text" type="text" placeholder="Search..." id="search-text">

@@ -5,16 +5,16 @@
   --fnt-clr: hsl(83, 27%, 94%);
   --clr-black-primary: hsl(0, 0%, 21%);
   --clr-black-secondary: hsl(0, 0%, 31%);
+  --gray-primary: hsl(0, 0%, 45%);
 }
 *{
   margin: 0px;
   padding: 0px;
-  background-color: var(--clr-black-primary);
 }
 body {
   background-color: var(--clr-black-primary);
 }
-main{
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,21 +27,56 @@ nav {
   display: flex;
   justify-content: space-evenly;
   background-color: var(--clr-black-secondary);
-  border-bottom: 1px solid rgb(114, 114, 114);
+  border-bottom: 1px solid var(--gray-primary);
 }
-nav > a {
+.nav-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.navitem {
+  display: inline-block;
   font-size: 1.3rem;
   text-decoration: none;
-  color: white;
+  color: var(--fnt-clr);
   background-color: transparent;
   padding: 1rem 0.5rem;
   border: 1px solid transparent;
 }
-nav > a:hover {
+.navitem:hover {
   background-color: var(--clr-black-primary);
-  border-top: 1px solid rgb(114, 114, 114);
-  border-right: 1px solid rgb(114, 114, 114);
-  border-left: 1px solid rgb(114, 114, 114);
+  border-top: 1px solid var(--gray-primary);
+  border-right: 1px solid var(--gray-primary);
+  border-left: 1px solid var(--gray-primary);
+}
+.nav-dropdown-container {
+  display: flex;
+  position: relative;
+  padding: 0 0.5em;
+}
+.nav-dropdown-container .dropdown-button {
+  display: inline-block;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 2rem;
+  border: 0;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  border-radius: 0.3em;
+  overflow: hidden;
+  border: 1px solid var(--gray-primary);
+}
+.nav-dropdown > * {
+  color: var(--fnt-clr);
+  padding: 0.5rem;
+  background-color: var(--clr-black-secondary);
+  cursor: pointer;
+}
+.nav-dropdown > *:hover {
+  background-color: var(--clr-black-primary);
 }
 
 /* Functions for all pages to use. */
