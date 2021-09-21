@@ -1,5 +1,4 @@
 const os = require('os');
-const fs = require('fs');
 
 function makeFolder(names = []) {
   // Making sure that names is in array format.
