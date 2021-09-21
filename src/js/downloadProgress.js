@@ -1,9 +1,37 @@
 // Modules
 const axios = require('axios');
+const fs = require('fs');
 
 // Necessary variables.
 let progressContainer = { downloading: [], downloaded: [], incomplete: [], deleted: [] };
 let showProgressId = 0;
+
+// Turning the localStorage into an array.
+const keys = Object.keys(localStorage);
+keys.forEach(key => {
+  try {
+    const stat = fs.statSync(key);
+    const itemSize = localStorage.getItem(key).split(' ')[1];
+    if(stat.size == itemSize) {
+      progressContainer.downloaded.push({
+        name: key,
+        url: localStorage.getItem(key),
+      });
+    }
+    else {
+      progressContainer.incomplete.push({
+        name: key,
+        url: localStorage.getItem(key),
+      });
+    }
+  }
+  catch(e) {
+    progressContainer.deleted.push({
+      name: key,
+      url: localStorage.getItem(key),
+    });
+  }
+});
 
 // All functions.
 async function addToProgressbar(name, url) {
@@ -18,11 +46,8 @@ async function addToProgressbar(name, url) {
 function showProgressbar() {
   // making sure progressbar is not alredy showing.
   clearInterval(showProgressId);
-  // Turning the localStorage into an array.
-  const keys = Object.keys(localStorage);
-  keys.forEach(key => {
-    progressContainer.downloading.push({name: key, url: localStorage.getItem(key)});
-  });
+  
+  // Showing progress.
   showProgressId = setInterval(() => {
     progressContainer.downloading.forEach((progress) => {
       // Extracting data about all the downloads.
