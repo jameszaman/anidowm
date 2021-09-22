@@ -7,8 +7,10 @@ const navDropdown = document.querySelector("#nav-dropdown");
 dropdownButton.addEventListener('click', () => {
   if(navDropdown.classList.contains('hidden')) {
     navDropdown.classList.remove('hidden');
+    showProgress();
   }
   else {
     navDropdown.classList.add("hidden");
+    stopShowingProgress();
   }
 });

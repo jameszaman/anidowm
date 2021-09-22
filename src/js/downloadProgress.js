@@ -25,7 +25,6 @@ keys.forEach(key => {
   // Extracting the name.
   const keySplit = key.split('/');
   const name = keySplit[keySplit.length - 1];
-  console.log(key, name);
   
   try {
     // Getting size.
@@ -45,18 +44,20 @@ keys.forEach(key => {
 });
 
 // All functions.
-async function addToProgressbar(name, url) {
+async function addToProgressbar(location, url) {
   // Getting the size of the file.
   const data = await axios.head(url);
   const size = data.headers["content-length"];
 
-  // Saving in localstorage. name: url size
-  localStorage.setItem(name, `${url} ${size}`);
+  // Saving in localstorage. location: url size
+  localStorage.setItem(location, `${url} ${size}`);
 
+  const locationSplit = location.split("/");
+  const name = locationSplit[locationSplit.length - 1];
 
   // Adding it to navDropdown and progressContainer to show it downloading.
   const downloadProgress = showInProgressbar(name, "downloading");
-  progressContainer.downloading.push({ name, downloadProgress, size });
+  progressContainer.downloading.push({ location, name, downloadProgress, size });
 }
 
 function showProgress(container) {
@@ -68,7 +69,7 @@ function showProgress(container) {
   showProgressId = setInterval(() => {
     progressContainer.downloading.forEach((progress) => {
       // Getting the size of how much downloaded.
-      const stat = fs.statSync(progress.name);
+      const stat = fs.statSync(progress.location);
       const downloadProgress = (stat.size / progress.size * 100).toFixed(3);
 
       // Stop showing the output when it reaches 100%
@@ -87,6 +88,6 @@ function showProgress(container) {
   }, 5000);
 }
 
-function stopShowingProgressbar() {
+function stopShowingProgress() {
   clearInterval(showProgressId);
 }
