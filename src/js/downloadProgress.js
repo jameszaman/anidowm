@@ -91,7 +91,6 @@ function markAsDownloaded(element) {
 }
 
 function deleteFromProgessbar(element, key) {
-  console.log(key);
   localStorage.removeItem(key)
   navDropdown.removeChild(element);
 }
@@ -157,8 +156,14 @@ function showProgress(container) {
   showProgressId = setInterval(() => {
     progressContainer.downloading.forEach((progress) => {
       // Getting the size of how much downloaded.
-      const stat = fs.statSync(progress.location);
-      const downloadProgress = (stat.size / progress.size * 100).toFixed(3);
+      let downloadProgress;
+      try {
+        const stat = fs.statSync(progress.location);
+        downloadProgress = (stat.size / progress.size * 100).toFixed(3);
+      }
+      catch (e) {
+        downloadProgress = '0.000';
+      }
 
       // Stop showing the output when it reaches 100%
       if(downloadProgress === '100.000') {

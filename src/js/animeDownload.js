@@ -21,16 +21,21 @@ async function downloadAll(name, url) {
     const episode = url.split("episode-")[1];
     anime_names.push(`${target_foler}/${name} ${episode}.mp4`);
   });
-  
+
   // Download urls for all anime
   const download_urls = [];
-  
+
   for (anime of episode_urls) {
     url = `https://anidown.herokuapp.com/getanimedownloadurl?anime=${anime}`;
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }
   
+  // Adding to download progressbar.
+  download_urls.forEach((url, index) => {
+    addToProgressbar(anime_names[index], url);
+  });
+
   // Downloading all the episodes.
   download(download_urls, anime_names);
 }
@@ -55,6 +60,10 @@ async function downloadSelect(name, url, episodeList) {
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }
+  // Adding to download progressbar.
+  download_urls.forEach((url, index) => {
+    addToProgressbar(anime_names[index], url);
+  });
   // Downloading all the episodes.
   download(download_urls, anime_names);
 }
