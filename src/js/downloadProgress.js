@@ -6,16 +6,17 @@ const fs = require('fs');
 let progressContainer = { downloading: [], incomplete: [], deleted: [] };
 let showProgressId = 0;
 
-function showInProgressbar(name, cssClass) {
+function showInProgressbar(name, cssClass, size) {
   const progressBar = document.createElement("p");
   if(cssClass === "downloading") {
-    progressBar.innerText = `${name}: 0% completed.`;
+    progressBar.innerText = `${name}: ${size}% completed.`;
+    navDropdown.insertBefore(progressBar, navDropdown.firstChild);
   }
   else {
     progressBar.innerText = name;
+    navDropdown.appendChild(progressBar);
   }
   progressBar.classList.add(cssClass);
-  navDropdown.insertBefore(progressBar, navDropdown.firstChild);
   return progressBar;
 }
 
@@ -35,7 +36,17 @@ keys.forEach(key => {
       showInProgressbar(name, 'downloaded');
     }
     else {
-      showInProgressbar(name, "incomplete");
+      const downloadProgress = showInProgressbar(
+        name,
+        "downloading",
+        ((stat.size / itemSize) * 100).toFixed(3)
+      );
+      progressContainer.downloading.push({
+        location: key,
+        name,
+        downloadProgress,
+        size: itemSize,
+      });
     }
   }
   catch(e) {
@@ -56,7 +67,7 @@ async function addToProgressbar(location, url) {
   const name = locationSplit[locationSplit.length - 1];
 
   // Adding it to navDropdown and progressContainer to show it downloading.
-  const downloadProgress = showInProgressbar(name, "downloading");
+  const downloadProgress = showInProgressbar(name, "downloading", 0);
   progressContainer.downloading.push({ location, name, downloadProgress, size });
 }
 

@@ -63,6 +63,7 @@ nav {
 .nav-dropdown {
   --nav-dropdown-top: 3rem;
   --nav-dropdown-width: 30vw;
+  box-sizing: border-box;
   width: var(--nav-dropdown-width);
   position: absolute;
   overflow: auto;
