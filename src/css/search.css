@@ -14,7 +14,7 @@
 }
 .search-text {
   font-size: 1.3rem;
-  color: var(--fnt-clr);
+  color: var(--black-secondary);
   padding: 0.25em 0.5em;
   flex: 8;
   border: 0;
