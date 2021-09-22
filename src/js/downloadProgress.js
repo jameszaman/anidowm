@@ -11,7 +11,13 @@ function showInProgressbar(name, cssClass, size) {
   const downloadContainer = document.createElement("div");
   const downloadName = document.createElement("p");
 
-  if(cssClass === "downloading") {
+  // Adding classes.
+  downloadName.classList.add("name");
+  
+  // Setting values.
+  downloadName.innerText = name;
+
+  if (cssClass === "downloading") {
     // creating necessary elements for showing download progress.
     const downloadInfo = document.createElement("div");
     const textProgress = document.createElement("p");
@@ -19,15 +25,13 @@ function showInProgressbar(name, cssClass, size) {
     const progress = document.createElement("div");
 
     // Setting values.
-    downloadName.innerText = name;
     textProgress.innerText = `${size} %`;
 
     // Adding classes.
-    downloadName.classList.add('name');
-    downloadInfo.classList.add('download-info');
-    textProgress.classList.add('text-progress');
-    visualProgress.classList.add('visual-progress');
-    progress.classList.add('progress');
+    downloadInfo.classList.add("download-info");
+    textProgress.classList.add("text-progress");
+    visualProgress.classList.add("visual-progress");
+    progress.classList.add("progress");
 
     // Appending elements.
     downloadContainer.appendChild(downloadName);
@@ -36,12 +40,29 @@ function showInProgressbar(name, cssClass, size) {
     downloadInfo.appendChild(visualProgress);
     visualProgress.appendChild(progress);
     navDropdown.insertBefore(downloadContainer, navDropdown.firstChild);
+  } else {
+    // Creating elements.
+    const downloadMessage = document.createElement("p");
+
+    // Setting values.
+    if (cssClass === "download-complete") {
+      downloadMessage.innerText = 'Download Completed';
+    }
+    else if (cssClass === "download-deleted") {
+      downloadMessage.innerText = 'Already Deleted';
+    }
+    else {
+      downloadMessage.innerText = 'Message not found.'
+    }
+    // Adding classes.
+    downloadContainer.classList.add(cssClass);
+
+    // Appending elements.
+    downloadContainer.appendChild(downloadName);
+    downloadContainer.appendChild(downloadMessage);
+    navDropdown.appendChild(downloadContainer);
   }
-  else {
-    downloadName.innerText = name;
-    navDropdown.appendChild(downloadName);
-  }
-  downloadName.classList.add(cssClass);
+
   return downloadContainer;
 }
 
@@ -58,7 +79,7 @@ keys.forEach(key => {
     const itemSize = localStorage.getItem(key).split(' ')[1];
 
     if(stat.size == itemSize) {
-      showInProgressbar(name, 'downloaded');
+      showInProgressbar(name, "download-complete");
     }
     else {
       const downloadProgress = showInProgressbar(
@@ -75,7 +96,7 @@ keys.forEach(key => {
     }
   }
   catch(e) {
-    showInProgressbar(name, "deleted");
+    showInProgressbar(name, "download-deleted");
   }
 });
 
@@ -110,10 +131,8 @@ function showProgress(container) {
 
       // Stop showing the output when it reaches 100%
       if(downloadProgress === '100.000') {
-        // Showing it as complete.
-        progressContainer.downloaded.classList.remove('downloading');
-        progressContainer.downloaded.classList.add('downloaded');
         // Removing the element.
+        markAsComplete();
         progressContainer.downloading = progressContainer.downloading.filter(prog => prog != progress);
       }
       else {
