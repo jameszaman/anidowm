@@ -77,17 +77,23 @@ nav {
   transition: all 0.5s ease;
 }
 .nav-dropdown > * {
+  position: relative;
   color: var(--fnt-clr);
   padding: 0.5rem;
   border-bottom: 1px solid var(--gray-primary);
   background-color: var(--black-secondary);
 }
 
-.nav-dropdown .name {
-  margin-bottom: 0.5em;
+.nav-dropdown > *:hover {
+  background-color: var(--black-primary);
 }
 
-.download-complete > *:nth-child(2) {
+.nav-dropdown .name {
+  margin-bottom: 0.5em;
+  padding-right: 1.5em;
+}
+
+.download-complete > *:nth-child(3) {
   color: var(--green-primary);
 }
 
@@ -122,9 +128,6 @@ nav {
   background-color: var(--green-primary);
   transition: width 1s ease;
 }
-.nav-dropdown > *:hover {
-  background-color: var(--black-primary);
-}
 .nav-dropdown-hidden {
   top: 0;
   opacity: 0;
@@ -150,4 +153,14 @@ nav {
 
 .deleted {
   text-decoration: line-through;
+}
+
+.nav-dropdown .delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: 0;
+  color: var(--red-primary);
+  cursor: pointer;
 }

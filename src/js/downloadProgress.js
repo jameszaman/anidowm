@@ -6,16 +6,28 @@ const fs = require('fs');
 let progressContainer = { downloading: [], incomplete: [], deleted: [] };
 let showProgressId = 0;
 
-function showInProgressbar(name, cssClass, size) {
+function showInProgressbar(path, cssClass, size) {
+  // getting name from path.
+  const pathSplit = path.split("/");
+  const name = pathSplit[pathSplit.length - 1];
+
   // creating necessary elements.
   const downloadContainer = document.createElement("div");
   const downloadName = document.createElement("p");
+  const deleteButton = document.createElement("button");
 
   // Adding classes.
   downloadName.classList.add("name");
+  deleteButton.classList.add("delete-button");
   
   // Setting values.
   downloadName.innerText = name;
+  deleteButton.innerHTML = "&#9587;";
+
+  // Adding functionality.
+  deleteButton.addEventListener("click", () => {
+    deleteFromProgessbar(downloadContainer, path);
+  });
 
   if (cssClass === "downloading") {
     // creating necessary elements for showing download progress.
@@ -36,6 +48,7 @@ function showInProgressbar(name, cssClass, size) {
     // Appending elements.
     downloadContainer.appendChild(downloadName);
     downloadContainer.appendChild(downloadInfo);
+    downloadContainer.appendChild(deleteButton); 
     downloadInfo.appendChild(textProgress);
     downloadInfo.appendChild(visualProgress);
     visualProgress.appendChild(progress);
@@ -59,6 +72,7 @@ function showInProgressbar(name, cssClass, size) {
 
     // Appending elements.
     downloadContainer.appendChild(downloadName);
+    downloadContainer.appendChild(deleteButton);
     downloadContainer.appendChild(downloadMessage);
     navDropdown.appendChild(downloadContainer);
   }
@@ -76,6 +90,12 @@ function markAsDownloaded(element) {
   element.appendChild(downloadMessage);
 }
 
+function deleteFromProgessbar(element, key) {
+  console.log(key);
+  localStorage.removeItem(key)
+  navDropdown.removeChild(element);
+}
+
 // Turning the localStorage into an array.
 const keys = Object.keys(localStorage);
 keys.forEach(key => {
@@ -89,13 +109,14 @@ keys.forEach(key => {
     const itemSize = localStorage.getItem(key).split(' ')[1];
 
     if(stat.size == itemSize) {
-      showInProgressbar(name, "download-complete");
+      showInProgressbar(key, "download-complete");
     }
     else {
       const downloadProgress = showInProgressbar(
-        name,
+        key,
         "downloading",
-        ((stat.size / itemSize) * 100).toFixed(3)
+        ((stat.size / itemSize) * 100).toFixed(3),
+        key
       );
       progressContainer.downloading.push({
         location: key,
@@ -106,7 +127,7 @@ keys.forEach(key => {
     }
   }
   catch(e) {
-    showInProgressbar(name, "download-deleted");
+    showInProgressbar(key, "download-deleted");
   }
 });
 
@@ -123,7 +144,7 @@ async function addToProgressbar(location, url) {
   const name = locationSplit[locationSplit.length - 1];
 
   // Adding it to navDropdown and progressContainer to show it downloading.
-  const downloadProgress = showInProgressbar(name, "downloading", 0);
+  const downloadProgress = showInProgressbar(location, "downloading", 0);
   progressContainer.downloading.push({ location, name, downloadProgress, size });
 }
 

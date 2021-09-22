@@ -10,7 +10,7 @@
 .searchbar-container {
   margin: 1em;
   display: flex;
-  border: 1px solid var(--clr-black-secondary);
+  border: 1px solid var(--black-secondary);
 }
 .search-text {
   font-size: 1.3rem;
