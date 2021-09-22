@@ -1,10 +1,10 @@
 /* Common styling for all pages. */
 :root {
-  --clr-primary: hsl(135, 100%, 75%);
-  --clr-secondary: hsl(135, 100%, 55%);
+  --green-primary: hsl(135, 100%, 75%);
+  --green-secondary: hsl(135, 100%, 55%);
   --fnt-clr: hsl(83, 27%, 94%);
-  --clr-black-primary: hsl(0, 0%, 21%);
-  --clr-black-secondary: hsl(0, 0%, 31%);
+  --black-primary: hsl(0, 0%, 21%);
+  --black-secondary: hsl(0, 0%, 31%);
   --gray-primary: hsl(0, 0%, 45%);
 }
 *{
@@ -12,7 +12,7 @@
   padding: 0px;
 }
 body {
-  background-color: var(--clr-black-primary);
+  background-color: var(--black-primary);
 }
 main {
   display: flex;
@@ -26,7 +26,7 @@ main {
 nav {
   display: flex;
   justify-content: space-evenly;
-  background-color: var(--clr-black-secondary);
+  background-color: var(--black-secondary);
   border-bottom: 1px solid var(--gray-primary);
 }
 .nav-container {
@@ -44,7 +44,7 @@ nav {
   border: 1px solid transparent;
 }
 .navitem:hover {
-  background-color: var(--clr-black-primary);
+  background-color: var(--black-primary);
   border-top: 1px solid var(--gray-primary);
   border-right: 1px solid var(--gray-primary);
   border-left: 1px solid var(--gray-primary);
@@ -67,7 +67,7 @@ nav {
   width: var(--nav-dropdown-width);
   position: absolute;
   overflow: auto;
-  background-color: var(--clr-black-primary);
+  background-color: var(--black-primary);
   height: calc(100vh - var(--nav-dropdown-top));
   top: var(--nav-dropdown-top);
   right: 0;
@@ -79,10 +79,49 @@ nav {
   color: var(--fnt-clr);
   padding: 0.5rem;
   border-bottom: 1px solid var(--gray-primary);
-  background-color: var(--clr-black-secondary);
+  background-color: var(--black-secondary);
+}
+
+.nav-dropdown .name {
+  margin-bottom: 0.5em;
+}
+
+.download-complete {
+  color: var(--green-primary);
+}
+
+.download-deleted {
+  text-decoration: line-through;
+}
+
+.nav-dropdown .download-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-dropdown .text-progress {
+  width: 20%;
+}
+
+.nav-dropdown .visual-progress {
+  --progress-height: 0.75rem;
+  position: relative;
+  content: '';
+  display: inline-block;
+  width: 70%;
+  height: var(--progress-height);
+  border: 1px solid var(--fnt-clr);
+}
+.nav-dropdown .visual-progress .progress {
+  position: absolute;
+  content: '';
+  height: var(--progress-height);
+  width: 0%;
+  background-color: var(--green-primary);
 }
 .nav-dropdown > *:hover {
-  background-color: var(--clr-black-primary);
+  background-color: var(--black-primary);
 }
 .nav-dropdown-hidden {
   top: 0;
@@ -95,14 +134,18 @@ nav {
 .btn {
   font-size: 1.3rem;
   padding: 0.25em 0.5em;
-  background-color: var(--clr-primary);
+  background-color: var(--green-primary);
   border: 0;
   outline: 0;
 }
 .btn:hover {
   cursor: pointer;
-  background-color: var(--clr-secondary);
+  background-color: var(--green-secondary);
 }
 .hidden {
   display: none;
+}
+
+.deleted {
+  text-decoration: line-through;
 }

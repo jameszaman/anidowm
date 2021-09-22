@@ -7,17 +7,42 @@ let progressContainer = { downloading: [], incomplete: [], deleted: [] };
 let showProgressId = 0;
 
 function showInProgressbar(name, cssClass, size) {
-  const progressBar = document.createElement("p");
+  // creating necessary elements.
+  const downloadContainer = document.createElement("div");
+  const downloadName = document.createElement("p");
+
   if(cssClass === "downloading") {
-    progressBar.innerText = `${name}: ${size}% completed.`;
-    navDropdown.insertBefore(progressBar, navDropdown.firstChild);
+    // creating necessary elements for showing download progress.
+    const downloadInfo = document.createElement("div");
+    const textProgress = document.createElement("p");
+    const visualProgress = document.createElement("div");
+    const progress = document.createElement("div");
+
+    // Setting values.
+    downloadName.innerText = name;
+    textProgress.innerText = `${size} %`;
+
+    // Adding classes.
+    downloadName.classList.add('name');
+    downloadInfo.classList.add('download-info');
+    textProgress.classList.add('text-progress');
+    visualProgress.classList.add('visual-progress');
+    progress.classList.add('progress');
+
+    // Appending elements.
+    downloadContainer.appendChild(downloadName);
+    downloadContainer.appendChild(downloadInfo);
+    downloadInfo.appendChild(textProgress);
+    downloadInfo.appendChild(visualProgress);
+    visualProgress.appendChild(progress);
+    navDropdown.insertBefore(downloadContainer, navDropdown.firstChild);
   }
   else {
-    progressBar.innerText = name;
-    navDropdown.appendChild(progressBar);
+    downloadName.innerText = name;
+    navDropdown.appendChild(downloadName);
   }
-  progressBar.classList.add(cssClass);
-  return progressBar;
+  downloadName.classList.add(cssClass);
+  return downloadContainer;
 }
 
 // Turning the localStorage into an array.
@@ -93,7 +118,12 @@ function showProgress(container) {
       }
       else {
         // Showing the output.
-        progress.downloadProgress.innerText = `${progress.name}: ${downloadProgress}% completed.`;
+        const textProgress = progress.downloadProgress.querySelector('.text-progress');
+        const visualProgressAfter = progress.downloadProgress.querySelector(
+          ".visual-progress .progress"
+        );
+        textProgress.innerText = `${downloadProgress} %`;
+        visualProgressAfter.style.width = `${downloadProgress}%`;
       }
     });
   }, 5000);
