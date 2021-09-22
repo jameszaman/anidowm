@@ -15,7 +15,7 @@ function showInProgressbar(name, cssClass) {
     progressBar.innerText = name;
   }
   progressBar.classList.add(cssClass);
-  navDropdown.appendChild(progressBar);
+  navDropdown.insertBefore(progressBar, navDropdown.firstChild);
   return progressBar;
 }
 

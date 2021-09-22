@@ -51,7 +51,6 @@ nav {
 }
 .nav-dropdown-container {
   display: flex;
-  position: relative;
   padding: 0 0.5em;
 }
 .nav-dropdown-container .dropdown-button {
@@ -62,11 +61,12 @@ nav {
   border: 0;
 }
 .nav-dropdown {
-  width: var(--nav-dropdown-width);
   --nav-dropdown-top: 3rem;
   --nav-dropdown-width: 30vw;
-  position: fixed;
+  width: var(--nav-dropdown-width);
+  position: absolute;
   overflow: auto;
+  background-color: var(--clr-black-primary);
   height: calc(100vh - var(--nav-dropdown-top));
   top: var(--nav-dropdown-top);
   right: 0;
@@ -84,7 +84,10 @@ nav {
   background-color: var(--clr-black-primary);
 }
 .nav-dropdown-hidden {
-  right: calc(-1.2 * var(--nav-dropdown-width));
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  /* right: calc(-1.2 * var(--nav-dropdown-width)); */
 }
 
 /* Functions for all pages to use. */
