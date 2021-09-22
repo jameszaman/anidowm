@@ -118,7 +118,7 @@ nav {
   position: absolute;
   content: '';
   height: var(--progress-height);
-  width: 50%;
+  width: 0%;
   background-color: var(--green-primary);
   transition: width 1s ease;
 }

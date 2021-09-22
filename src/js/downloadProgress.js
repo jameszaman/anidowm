@@ -66,6 +66,16 @@ function showInProgressbar(name, cssClass, size) {
   return downloadContainer;
 }
 
+function markAsDownloaded(element) {
+  // Removing the download progress.
+  element.removeChild(element.childNodes[1]);
+  // Adding complete message.
+  const downloadMessage = document.createElement("p");
+  downloadMessage.innerText = "Download Completed";
+  element.classList.add("download-complete");
+  element.appendChild(downloadMessage);
+}
+
 // Turning the localStorage into an array.
 const keys = Object.keys(localStorage);
 keys.forEach(key => {
@@ -132,8 +142,8 @@ function showProgress(container) {
       // Stop showing the output when it reaches 100%
       if(downloadProgress === '100.000') {
         // Removing the element.
-        markAsComplete();
         progressContainer.downloading = progressContainer.downloading.filter(prog => prog != progress);
+        markAsDownloaded(progress.downloadProgress);
       }
       else {
         // Showing the output.
@@ -145,7 +155,7 @@ function showProgress(container) {
         visualProgressAfter.style.width = `${downloadProgress}%`;
       }
     });
-  }, 5000);
+  }, 1000);
 }
 
 function stopShowingProgress() {
