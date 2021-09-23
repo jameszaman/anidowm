@@ -1,6 +1,5 @@
 // Setting up electron.
 const electron = require("electron");
-const { ipcRenderer } = electron;
 
 // Selecting elements.
 let sauce = document.querySelector("#sauce");

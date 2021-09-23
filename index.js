@@ -12,6 +12,7 @@ const NPokemonDownload = require('./src/js/npokemonDownload');
 
 let mainWindow;
 let pythonPath;
+let electronProgressStorage = [];
 
 // Python dependencies
 spawn("pip", ["install", "bs4"]);
@@ -35,8 +36,6 @@ function strToArray(str) {
 
 // App event.
 app.on('ready', () => {
-  // Setting the app path as global variable.
-  global.appPath = app.getAppPath();
   // Different settings for production and development.
   let devTools = true;
   if (!process.env.DEVELOPMENT) {
@@ -58,7 +57,24 @@ app.on('ready', () => {
   if (!process.env.DEVELOPMENT) {
     autoUpdater.checkForUpdates();
   }
+  setTimeout(() => {
+    mainWindow.webContents.send("global-ready", {
+      appPath: app.getAppPath(),
+      electronProgressStorage,
+    });
+  }, 300);
 });
+
+// Event for download progress.
+ipcMain.on("new-download", (event, data) => {
+  electronProgressStorage.push(data);
+});
+
+// Send electronProgressStorage if asked.
+ipcMain.on("fetch-electron-progress-storage", () => {
+  mainWindow.webContents.send("recieve-electron-progress-storage", electronProgressStorage);
+});
+
 
 // Event for update.
 if (!process.env.DEVELOPMENT) {

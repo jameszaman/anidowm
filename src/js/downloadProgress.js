@@ -144,7 +144,12 @@ async function addToProgressbar(location, url) {
 
   // Adding it to navDropdown and progressContainer to show it downloading.
   const downloadProgress = showInProgressbar(location, "downloading", 0);
-  progressContainer.downloading.push({ location, name, downloadProgress, size });
+  progressContainer.downloading.push([location, name, downloadProgress, size]);
+  // Saving it in electron app.
+  ipcRenderer.send("new-download", {
+    location,
+    data: `${url} ${size}`,
+  });
 }
 
 function showProgress(container) {
