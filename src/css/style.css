@@ -3,6 +3,7 @@
   --green-primary: hsl(135, 100%, 75%);
   --green-secondary: hsl(135, 100%, 55%);
   --fnt-clr: hsl(83, 27%, 94%);
+  --message-clr: hsl(0, 0%, 78%);
   --black-primary: hsl(0, 0%, 21%);
   --black-secondary: hsl(0, 0%, 31%);
   --gray-primary: hsl(0, 0%, 45%);
@@ -95,6 +96,10 @@ nav {
 
 .download-complete > *:nth-child(3) {
   color: var(--green-primary);
+}
+
+.download-message > *:nth-child(2) {
+  color: var(--message-clr);
 }
 
 .download-deleted > *:first-child {

@@ -33,7 +33,7 @@ async function downloadAll(name, url) {
   
   // Adding to download progressbar.
   download_urls.forEach((url, index) => {
-    addToProgressbar(anime_names[index], url);
+    trackDownloadProgress(anime_names[index], url);
   });
 
   // Downloading all the episodes.
@@ -46,12 +46,15 @@ async function downloadSelect(name, url, episodeList) {
   let episode_urls = await axios.get(url);
   episode_urls = episode_urls.data;
 
+  // Sanatizing name.
+  name = sanatize(name);
+
   // Creating the folder for storing the anime.
   target_foler = makeFolder([name]);
 
   const anime_names = [];
   const download_urls = [];
-  for(index of episodeList) {
+  for (index of episodeList) {
     // The filename for the animes.
     const episode = episode_urls[index].split("episode-")[1];
     anime_names.push(`${target_foler}/${name} ${episode}.mp4`);
@@ -62,7 +65,7 @@ async function downloadSelect(name, url, episodeList) {
   }
   // Adding to download progressbar.
   download_urls.forEach((url, index) => {
-    addToProgressbar(anime_names[index], url);
+    trackDownloadProgress(anime_names[index], url);
   });
   // Downloading all the episodes.
   download(download_urls, anime_names);

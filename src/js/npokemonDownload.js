@@ -6,14 +6,17 @@ async function downloadNPokemon(name, urls) {
   // Shortening long names.
   if (name.length > 150) {
     name = name.substr(0, 150);
-    name += ". . .";
   }
+
+  // Sanatizing name.
+  name = sanatize(name);
+  
   // Creating a folder to store the manga.
   const targetFolder = makeFolder(name);
   // Downloading all the pages.
-  for(const url of urls) {
+  for (const url of urls) {
     // Getting the page no.
-    let page = url.split('/');
+    let page = url.split("/");
     page = page[page.length - 1];
     // Downloading the page.
     download(url, `${targetFolder}/${page}`);

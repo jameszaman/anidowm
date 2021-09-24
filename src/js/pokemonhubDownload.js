@@ -9,7 +9,7 @@ async function downloadPokemon(url, title) {
   // Making sure the Downloads/Anidown folder exists.
   // Also getting the path.
   targetFolder = makeFolder();
-  addToProgressbar(`${targetFolder}/${title}.mp4`, url);
+  trackDownloadProgress(`${targetFolder}/${title}.mp4`, url);
   download(url, `${targetFolder}/${title}.mp4`);
 }
 

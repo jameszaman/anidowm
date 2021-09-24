@@ -3,10 +3,10 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Necessary variables.
-let progressContainer = { downloading: [], incomplete: [], deleted: [] };
+let currentlyDownloading = [];
 let showProgressId = 0;
 
-function showInProgressbar(path, cssClass, size) {
+function showInProgressbar(path, cssClass, otherData) {
   // getting name from path.
   const pathSplit = path.split("/");
   const name = pathSplit[pathSplit.length - 1];
@@ -37,7 +37,7 @@ function showInProgressbar(path, cssClass, size) {
     const progress = document.createElement("div");
 
     // Setting values.
-    textProgress.innerText = `${size} %`;
+    textProgress.innerText = `${otherData} %`;
 
     // Adding classes.
     downloadInfo.classList.add("download-info");
@@ -48,7 +48,7 @@ function showInProgressbar(path, cssClass, size) {
     // Appending elements.
     downloadContainer.appendChild(downloadName);
     downloadContainer.appendChild(downloadInfo);
-    downloadContainer.appendChild(deleteButton); 
+    downloadContainer.appendChild(deleteButton);
     downloadInfo.appendChild(textProgress);
     downloadInfo.appendChild(visualProgress);
     visualProgress.appendChild(progress);
@@ -58,15 +58,10 @@ function showInProgressbar(path, cssClass, size) {
     const downloadMessage = document.createElement("p");
 
     // Setting values.
-    if (cssClass === "download-complete") {
-      downloadMessage.innerText = 'Download Completed';
+    if(!otherData) {
+      otherData = 'Message Not found!';
     }
-    else if (cssClass === "download-deleted") {
-      downloadMessage.innerText = 'Already Deleted';
-    }
-    else {
-      downloadMessage.innerText = 'Message not found.'
-    }
+    downloadMessage.innerText = otherData;
     // Adding classes.
     downloadContainer.classList.add(cssClass);
 
@@ -96,42 +91,49 @@ function deleteFromProgessbar(element, key) {
 }
 
 // Turning the localStorage into an array.
-const keys = Object.keys(localStorage);
-keys.forEach(key => {
-  // Extracting the name.
-  const keySplit = key.split('/');
-  const name = keySplit[keySplit.length - 1];
-  
-  try {
-    // Getting size.
-    const stat = fs.statSync(key);
-    const itemSize = localStorage.getItem(key).split(' ')[1];
+function getDataFromLocalstorage() {
+  const keys = Object.keys(localStorage);
+  keys.forEach((key) => {
+    // Extracting the name.
+    const keySplit = key.split("/");
+    const name = keySplit[keySplit.length - 1];
 
-    if(stat.size == itemSize) {
-      showInProgressbar(key, "download-complete");
+    try {
+      // Getting size.
+      const stat = fs.statSync(key);
+      const itemSize = localStorage.getItem(key).split(" ")[1];
+      if (stat.size == itemSize) {
+        showInProgressbar(key, "download-complete", "Download Completed");
+      } else {
+        let alreadDownloading = false;
+        for (let i of electronProgressStorage) {
+          alreadDownloading = key == i.location ? true : alreadDownloading;
+        }
+        console.log(alreadDownloading);
+        if (alreadDownloading) {
+          const downloadProgress = showInProgressbar(
+            key,
+            "downloading",
+            ((stat.size / itemSize) * 100).toFixed(3)
+          );
+          currentlyDownloading.push({
+            location: key,
+            name,
+            downloadProgress,
+            size: itemSize,
+          });
+        } else {
+          showInProgressbar(key, "download-message", "Download Incomplete.");
+        }
+      }
+    } catch (e) {
+      showInProgressbar(key, "download-deleted", "Already Deleted");
     }
-    else {
-      const downloadProgress = showInProgressbar(
-        key,
-        "downloading",
-        ((stat.size / itemSize) * 100).toFixed(3),
-        key
-      );
-      progressContainer.downloading.push({
-        location: key,
-        name,
-        downloadProgress,
-        size: itemSize,
-      });
-    }
-  }
-  catch(e) {
-    showInProgressbar(key, "download-deleted");
-  }
-});
+  });
+}
 
 // All functions.
-async function addToProgressbar(location, url) {
+async function trackDownloadProgress(location, url) {
   // Getting the size of the file.
   const data = await axios.head(url);
   const size = data.headers["content-length"];
@@ -144,7 +146,12 @@ async function addToProgressbar(location, url) {
 
   // Adding it to navDropdown and progressContainer to show it downloading.
   const downloadProgress = showInProgressbar(location, "downloading", 0);
-  progressContainer.downloading.push([location, name, downloadProgress, size]);
+  currentlyDownloading.push({
+    location,
+    name,
+    downloadProgress,
+    size,
+  });
   // Saving it in electron app.
   ipcRenderer.send("new-download", {
     location,
@@ -155,11 +162,13 @@ async function addToProgressbar(location, url) {
 function showProgress(container) {
   // making sure progressbar is not alredy showing.
   clearInterval(showProgressId);
-  
+  if (!navDropdown.firstElementChild) {
+    getDataFromLocalstorage();
+  }
   
   // Update progress.
   showProgressId = setInterval(() => {
-    progressContainer.downloading.forEach((progress) => {
+    currentlyDownloading.forEach((progress) => {
       // Getting the size of how much downloaded.
       let downloadProgress;
       try {
@@ -173,7 +182,7 @@ function showProgress(container) {
       // Stop showing the output when it reaches 100%
       if(downloadProgress === '100.000') {
         // Removing the element.
-        progressContainer.downloading = progressContainer.downloading.filter(prog => prog != progress);
+        currentlyDownloading = currentlyDownloading.filter(prog => prog != progress);
         markAsDownloaded(progress.downloadProgress);
       }
       else {
