@@ -23,7 +23,7 @@
 .download-container input {
   outline: none;
   border: 1px solid var(--black-secondary);
-  color: var(--fnt-clr);
+  color: var(--black-primary);
 }
 .download-container button {
   color: var(--fnt-clr);
