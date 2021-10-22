@@ -67,6 +67,7 @@ nav {
   --nav-dropdown-width: 30vw;
   box-sizing: border-box;
   width: var(--nav-dropdown-width);
+  min-width: 25rem;
   position: absolute;
   overflow: auto;
   background-color: var(--black-primary);
@@ -92,6 +93,24 @@ nav {
 .nav-dropdown .name {
   margin-bottom: 0.5em;
   padding-right: 1.5em;
+}
+.nav-options {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background-color: var(--black-primary);
+}
+.nav-options > * {
+  font-size: 1.2rem;
+  padding: 0.5em 0.75em;
+  border: 0;
+  height: 100%;
+  cursor: pointer;
+  background-color: var(--black-primary);
+  color: white;
+}
+.nav-options > *:hover {
+  background-color: var(--black-secondary);
 }
 
 .download-complete > *:nth-child(3) {
