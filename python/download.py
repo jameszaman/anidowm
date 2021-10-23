@@ -1,6 +1,5 @@
 import sys
 import requests
-from threading import Thread
 
 def to_list(string):
   string = string[1:-1]
@@ -29,11 +28,9 @@ if(sys.argv[1] and sys.argv[2]):
     if sys.argv[2][0] == '[' and sys.argv[2][-1] == ']':
       urls = to_list(sys.argv[1])
       names = to_list(sys.argv[2])
-      t1 = Thread(target=download_multiple, args=(urls, names))
-      t1.start()
+      download_multiple(urls, names)
     else:
       print('Error: Both of the arguments should be lists.')
   else:
     # Download the file using a new thread.
-    t1 = Thread(target=download_file, args=(sys.argv[1], sys.argv[2]))
-    t1.start()
+    download_file(sys.argv[1], sys.argv[2])
