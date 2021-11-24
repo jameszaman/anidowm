@@ -109,7 +109,6 @@ function getDataFromLocalstorage() {
         for (let i of electronProgressStorage) {
           alreadDownloading = key == i.location ? true : alreadDownloading;
         }
-        console.log(alreadDownloading);
         if (alreadDownloading) {
           const downloadProgress = showInProgressbar(
             key,
