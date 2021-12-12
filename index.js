@@ -9,6 +9,7 @@ require('dotenv').config();
 const { downloadAll, downloadSelect } = require('./src/js/animeDownload');
 const pokemonhubDownload = require('./src/js/pokemonhubDownload');
 const NPokemonDownload = require('./src/js/npokemonDownload');
+const { ipcRenderer } = require("electron/renderer");
 
 let mainWindow;
 let pythonPath;
@@ -57,12 +58,12 @@ app.on('ready', () => {
   if (!process.env.DEVELOPMENT) {
     autoUpdater.checkForUpdates();
   }
-  setTimeout(() => {
+  ipcMain.on('request-app-path', () => {
     mainWindow.webContents.send("global-ready", {
       appPath: app.getAppPath(),
       electronProgressStorage,
     });
-  }, 300);
+  });
 });
 
 // Event for download progress.
