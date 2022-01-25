@@ -1,7 +1,25 @@
 // Importing necessary modules.
 const path = require('path');
+const https = require("https");
 const { spawn } = require('child_process');
 
+async function downloadSingleFile(url, filePath) {
+  https.get(url, (res) => {
+    // Open file in local filesystem
+    const file = fs.createWriteStream(filePath);
+    // Write data into local file
+    res.pipe(file);
+    // Close the file
+    file.on("finish", () => {
+      file.close();
+      return true;
+    });
+  })
+  .on("error", (err) => {
+    console.log("Error: ", err.message);
+    return false;
+  });
+}
 
 async function download(url, filePath) {
   // We should not download the file if it already exists.
@@ -28,13 +46,17 @@ async function download(url, filePath) {
       downloader = path.join(global.appPath, "..", "python/download.py");
     }
 
-    // If arguments are array, pass them in array format for python.
+    // Downloading accordingly if either array of urls/paths or single url/path was sent.
     if (Array.isArray(url)) {
+      url.forEach((url, index) => {
+        downloadSingleFile(url, filePath[index]);
+      })
       url = `[${url.toString()}]`;
       filePath = `[${filePath.toString()}]`;
     }
-
-    // Downloading the file.
-    spawn("python", [downloader, url, filePath]);
+    else {
+      // Downloading the file.
+      downloadSingleFile(url, filePath);
+    }
   }
 };
