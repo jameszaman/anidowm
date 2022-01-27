@@ -11,9 +11,6 @@ async function downloadNPokemon(name, urls) {
   if (name.length > 150) {
     name = name.substr(0, 150);
   }
-
-  // Sanatizing name.
-  name = sanatize(name);
   
   // Creating a folder to store the manga.
   const targetFolder = makeFolder(name);
