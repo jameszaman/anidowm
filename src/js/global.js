@@ -1,7 +1,6 @@
 const { ipcRenderer } = require("electron");
 
 let electronProgressStorage;
-let appPath;
 
 setTimeout(() => {
   ipcRenderer.send("request-app-path");
@@ -9,7 +8,6 @@ setTimeout(() => {
 
 ipcRenderer.on("global-ready", (event, data) => {
   electronProgressStorage = data.electronProgressStorage;
-  global.appPath = data.appPath;
 });
 
 // Make sure to load downloadedProgress each time new page is loaded.

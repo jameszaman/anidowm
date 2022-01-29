@@ -19,8 +19,7 @@
   "build": {
     "appId": "com.james.anidown",
     "productName": "anidown",
-    "target": "NSIS",
-    "extraResources": "python"
+    "target": "NSIS"
   },
   "nsis": {
     "allowToChangeInstallationDirectory": "true",
