@@ -6,7 +6,7 @@
 }
 .title {
   margin-bottom: 1em;
-  color: var(--fnt-clr);
+  color: var(--white-prm);
 }
 .download-container {
   display: flex;
@@ -22,18 +22,18 @@
 }
 .download-container input {
   outline: none;
-  border: 1px solid var(--black-secondary);
-  color: var(--black-primary);
+  border: 1px solid var(--black-sec);
+  color: var(--black-prm);
 }
 .download-container button {
-  color: var(--fnt-clr);
-  background-color: var(--black-secondary);
+  color: var(--white-prm);
+  background-color: var(--black-sec);
   outline: none;
   border: 0;
   border-radius: 0.3em;
   cursor: pointer;
 }
 .download-container button:hover {
-  background-color: var(--green-primary);
-  color: var(--black-primary);
+  background-color: var(--purple-prm);
+  color: var(--black-prm);
 }

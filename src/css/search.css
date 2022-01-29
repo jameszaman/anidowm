@@ -10,11 +10,11 @@
 .searchbar-container {
   margin: 1em;
   display: flex;
-  border: 1px solid var(--black-secondary);
+  border: 1px solid var(--black-sec);
 }
 .search-text {
   font-size: 1.3rem;
-  color: var(--black-secondary);
+  color: var(--black-sec);
   padding: 0.25em 0.5em;
   flex: 8;
   border: 0;
@@ -33,7 +33,7 @@
 .search-result {
   width: 20rem;
   margin: 1em 0.5em;
-  color: var(--fnt-clr);
+  color: var(--white-prm);
 }
 .anime-image {
   width: 100%;
