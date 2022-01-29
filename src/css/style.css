@@ -35,6 +35,10 @@ nav {
   background-color: var(--black-sec);
   border-bottom: 1px solid var(--gray-prm);
 }
+.top-nav {
+  position: sticky;
+  top: 0;
+}
 .nav-container {
   flex: 1;
   display: flex;
