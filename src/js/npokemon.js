@@ -1,6 +1,3 @@
-// Setting up electron.
-const electron = require("electron");
-
 // Selecting elements.
 let sauce = document.querySelector("#sauce");
 const singleDownloadBtn = document.querySelector("#single-download-btn");

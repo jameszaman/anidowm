@@ -1,6 +1,3 @@
-// Setting up electron.
-const electron = require("electron");
-
 // Selecting elements.
 const searchText = document.querySelector("#search-text");
 const searchForm = document.querySelector("#search-form");
