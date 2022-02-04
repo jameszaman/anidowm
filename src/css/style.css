@@ -23,148 +23,11 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
 }
-
-/* Code for nav */
 nav {
-  display: flex;
-  justify-content: space-evenly;
   background-color: var(--black-sec);
   border-bottom: 1px solid var(--gray-prm);
-}
-.top-nav {
-  position: sticky;
-  top: 0;
-}
-.nav-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-.navitem {
-  display: inline-block;
-  font-size: 1.3rem;
-  text-decoration: none;
-  color: var(--white-prm);
-  background-color: transparent;
-  padding: 1rem 0.5rem;
-  border: 1px solid transparent;
-}
-.navitem:hover {
-  background-color: var(--black-prm);
-  border-top: 1px solid var(--gray-prm);
-  border-right: 1px solid var(--gray-prm);
-  border-left: 1px solid var(--gray-prm);
-}
-.nav-dropdown-container {
-  display: flex;
-  padding: 0 0.5em;
-}
-.nav-dropdown-container .dropdown-button {
-  display: inline-block;
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 2rem;
-  border: 0;
-}
-.nav-dropdown {
-  --nav-dropdown-top: 3rem;
-  --nav-dropdown-width: 30vw;
-  box-sizing: border-box;
-  width: var(--nav-dropdown-width);
-  min-width: 25rem;
-  position: absolute;
-  overflow: auto;
-  background-color: var(--black-prm);
-  height: calc(100vh - var(--nav-dropdown-top));
-  top: var(--nav-dropdown-top);
-  right: 0;
-  border-radius: 0.3em;
-  border: 1px solid var(--gray-prm);
-  transition: all 0.5s ease;
-}
-.nav-dropdown > * {
-  position: relative;
-  color: var(--white-prm);
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--gray-prm);
-  background-color: var(--black-sec);
-}
-
-.nav-dropdown > *:hover {
-  background-color: var(--black-prm);
-}
-
-.nav-dropdown .name {
-  margin-bottom: 0.5em;
-  padding-right: 1.5em;
-}
-.nav-options {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  background-color: var(--black-prm);
-}
-.nav-options > * {
-  font-size: 1.2rem;
-  padding: 0.5em 0.75em;
-  border: 0;
-  height: 100%;
-  cursor: pointer;
-  background-color: var(--black-prm);
-  color: white;
-}
-.nav-options > *:hover {
-  background-color: var(--black-sec);
-}
-
-.download-complete > *:nth-child(3) {
-  color: var(--purple-prm);
-}
-
-.download-message > *:nth-child(2) {
-  color: var(--white-sec);
-}
-
-.download-deleted > *:first-child {
-  text-decoration: line-through;
-}
-.download-deleted > *:nth-child(2) {
-  color: var(--red-prm);
-}
-
-.nav-dropdown .download-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.nav-dropdown .visual-progress {
-  --progress-height: 0.75rem;
-  position: relative;
-  content: '';
-  display: inline-block;
-  width: 70%;
-  height: var(--progress-height);
-  border: 1px solid var(--white-prm);
-}
-.nav-dropdown .visual-progress .progress {
-  position: absolute;
-  content: '';
-  height: var(--progress-height);
-  width: 0%;
-  background-color: var(--purple-prm);
-  transition: width 1s ease;
-}
-.nav-dropdown-hidden {
-  top: 0;
-  opacity: 0;
-  pointer-events: none;
-  /* right: calc(-1.2 * var(--nav-dropdown-width)); */
 }
 
 /* Functions for all pages to use. */
@@ -185,14 +48,4 @@ nav {
 
 .deleted {
   text-decoration: line-through;
-}
-
-.nav-dropdown .delete-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: 0;
-  color: var(--red-prm);
-  cursor: pointer;
 }
