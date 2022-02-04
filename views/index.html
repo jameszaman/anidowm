@@ -35,15 +35,17 @@
     <div class="webpage">
       <!-- This is the homepage. -->
     </div>
+
+    <!-- Anime page -->
     <div class="webpage hidden">
-      <form class="searchbar-container" id="search-form">
-        <input class="search-text" type="text" placeholder="Search..." id="search-text">
+      <form class="searchbar-container" id="anime-search-form">
+        <input class="search-text" type="text" placeholder="Search..." id="anime-search-text">
         <button class="search-button btn" type="submit" id="search-button">Search</button>
       </form>
       <div class="download-popup-container">
-        <div class="download-popup hidden" id="download-popup">
-          <span class="delete-btn" id="delete-btn">&#10799</span>
-          <div class="initial-buttons" id="initial-buttons">
+        <div class="download-popup hidden" id="anime-download-popup">
+          <span class="delete-btn" id="anime-delete-btn">&#10799</span>
+          <div class="initial-buttons" id="anime-initial-buttons">
             <button class="btn" id="download-all-btn">Download All</button>
             <button class="btn" id="download-between-btn">Download Between</button>
             <button class="btn" id="select-download-btn">Select Download</button>
@@ -63,30 +65,33 @@
           </div>
         </div>
       </div>
-      <div class="search-result-container" id="search-result-container">
+      <div class="search-result-container" id="anime-search-result-container">
         <!-- Search Results are added with JS. -->
       </div>
     </div>
+
     <div class="webpage hidden">
       <div class="download-popup-container">
-        <div class="download-popup hidden" id="download-popup">
-          <span class="delete-btn" id="delete-btn">&#10799</span>
-          <div class="initial-buttons" id="initial-buttons">
+        <div class="download-popup hidden" id="ph-download-popup">
+          <span class="delete-btn" id="ph-delete-btn">&#10799</span>
+          <div class="initial-buttons" id="ph-initial-buttons">
             <!-- Adding options with JS. -->
           </div>
         </div>
       </div>
-      <form class="searchbar-container" id="search-form">
-        <input class="search-text" type="text" placeholder="Search..." id="search-text">
+      <form class="searchbar-container" id="ph-search-form">
+        <input class="search-text" type="text" placeholder="Search..." id="ph-search-text">
         <button class="search-button btn" type="submit" id="search-button">Search</button>
       </form>
       <div class="header-video" id="header-video">
         <!-- When related video is shown, the main video is added here with js. -->
       </div>
-      <div class="search-result-container" id="search-result-container">
+      <div class="search-result-container" id="ph-search-result-container">
         <!-- Search Results are added with JS. -->
       </div>
     </div>
+
+    <!-- NPokemon page -->
     <div class="webpage hidden">
       <div class="download-main-container">
         <h1 class="title">Give the ID of any manga and press download.</h1>

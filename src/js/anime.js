@@ -2,14 +2,14 @@
 const electron = require("electron");
 
 // Selecting elements.
-const searchResultContainer = document.querySelector("#search-result-container");
-const searchText = document.querySelector("#search-text");
-const searchForm = document.querySelector("#search-form");
-const downloadPopup = document.querySelector("#download-popup");
+const animeSearchResultContainer = document.querySelector("#anime-search-result-container");
+const animeSearchText = document.querySelector("#anime-search-text");
+const animeSearchForm = document.querySelector("#anime-search-form");
+const animeDownloadPopup = document.querySelector("#anime-download-popup");
 const downloadAllBtn = document.querySelector("#download-all-btn");
 const downloadBetweenBtn = document.querySelector("#download-between-btn");
 const selectDownloadBtn = document.querySelector("#select-download-btn");
-const initialButtons = document.querySelector("#initial-buttons");
+const animeInitialButtons = document.querySelector("#anime-initial-buttons");
 const downloadBetween = document.querySelector("#download-between");
 const selectDownload = document.querySelector("#select-download");
 const downloadBetweenEpisode = document.querySelector("#download-between-episode");
@@ -17,7 +17,7 @@ const downloadSelectEpisode = document.querySelector("#download-select-episode")
 const downloadBetweenStart = document.querySelector("#download-between-start");
 const downloadBetweenEnd = document.querySelector("#download-between-end");
 const optionContainer = document.querySelector("#option-container");
-const deleteBtn = document.querySelector("#delete-btn");
+const animeDeleteBtn = document.querySelector("#anime-delete-btn");
 const body = document.querySelector("body");
 
 // Global variables.
@@ -32,17 +32,17 @@ function deleteChilds(element) {
 }
 
 // Electron events.
-searchForm.addEventListener("submit", (e) => {
+animeSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchValue = searchText.value;
-  searchText.value = "";
+  const searchValue = animeSearchText.value;
+  animeSearchText.value = "";
   fetch(`
     https://anidown.herokuapp.com/searchanimes?anime=${searchValue}
   `)
     .then((res) => res.json())
     .then((datas) => {
       // Clearing previous search results and searchbar.
-      deleteChilds(searchResultContainer);
+      deleteChilds(animeSearchResultContainer);
 
       // Adding all the data to the page.
       datas[0].forEach((data, index) => {
@@ -70,8 +70,8 @@ searchForm.addEventListener("submit", (e) => {
           // First is the name, second is the url.
           anime = [data.replace(":", "").trim(), datas[2][index]];
           selectedEpisodes = [];
-          downloadPopup.classList.remove("hidden");
-          initialButtons.classList.remove("hidden");
+          animeDownloadPopup.classList.remove("hidden");
+          animeInitialButtons.classList.remove("hidden");
           downloadBetween.classList.add("hidden");
           selectDownload.classList.add("hidden");
         });
@@ -80,13 +80,13 @@ searchForm.addEventListener("submit", (e) => {
         info.appendChild(downloadButton);
         searchResult.appendChild(animeImage);
         searchResult.appendChild(info);
-        searchResultContainer.appendChild(searchResult);
+        animeSearchResultContainer.appendChild(searchResult);
       });
     });
 });
 
 downloadAllBtn.addEventListener("click", () => {
-  downloadPopup.classList.add("hidden");
+  animeDownloadPopup.classList.add("hidden");
   downloadAll(anime[0], anime[1]);
 });
 
@@ -94,7 +94,7 @@ downloadAllBtn.addEventListener("click", () => {
 
 // HTML Events.
 downloadBetweenBtn.addEventListener("click", () => {
-  initialButtons.classList.add('hidden');
+  animeInitialButtons.classList.add('hidden');
   downloadBetween.classList.remove('hidden');
 });
 
@@ -104,7 +104,7 @@ selectDownloadBtn.addEventListener("click", () => {
     optionContainer.removeChild(optionContainer.firstChild);
   }
   // Make downloadButton visible.
-  initialButtons.classList.add("hidden");
+  animeInitialButtons.classList.add("hidden");
   selectDownload.classList.remove("hidden");
   // Get episodes List and render them as options.
   fetch(
@@ -144,7 +144,7 @@ selectDownloadBtn.addEventListener("click", () => {
 
 // Event for downloading episodes in range.
 downloadBetweenEpisode.addEventListener("click", () => {
-  downloadPopup.classList.add("hidden");
+  animeDownloadPopup.classList.add("hidden");
   // Converting the range into an array.
   const episodeList = [];
   const start = Number(downloadBetweenStart.value) - 1;
@@ -158,11 +158,11 @@ downloadBetweenEpisode.addEventListener("click", () => {
 
 // Event for downloading selected episodes.
 downloadSelectEpisode.addEventListener("click", () => {
-  downloadPopup.classList.add("hidden");
+  animeDownloadPopup.classList.add("hidden");
   downloadSelect(anime[0], anime[1], selectedEpisodes);
 });
-deleteBtn.addEventListener("click", () => {
-  downloadPopup.classList.add('hidden');
+animeDeleteBtn.addEventListener("click", () => {
+  animeDownloadPopup.classList.add('hidden');
 })
 
 // Event for update window.

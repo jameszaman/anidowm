@@ -1,10 +1,10 @@
 // Selecting elements.
-const searchText = document.querySelector("#search-text");
-const searchForm = document.querySelector("#search-form");
-const searchResultContainer = document.querySelector("#search-result-container");
-const downloadPopup = document.querySelector("#download-popup");
-const deleteBtn = document.querySelector("#delete-btn");
-const initialButtons = document.querySelector("#initial-buttons");
+const PHSearchText = document.querySelector("#ph-search-text");
+const PHSearchForm = document.querySelector("#ph-search-form");
+const PHSearchResultContainer = document.querySelector("#ph-search-result-container");
+const PHDownloadPopup = document.querySelector("#ph-download-popup");
+const PHDeleteBtn = document.querySelector("#ph-delete-btn");
+const PHInitialButtons = document.querySelector("#ph-initial-buttons");
 const headerVideo = document.querySelector("#header-video");
 
 // Global variables.
@@ -46,9 +46,9 @@ function addSearchResult(data, container) {
     )
     .then((res) => res.json())
     .then((data) => {
-      downloadPopup.classList.remove("hidden");
+      PHDownloadPopup.classList.remove("hidden");
       // Delete all previous quality buttons.
-      deleteChilds(initialButtons);
+      deleteChilds(PHInitialButtons);
       // Add a button for each quality.
       data["quality"].forEach((quality) => {
         // Creating elements.
@@ -59,11 +59,11 @@ function addSearchResult(data, container) {
         button.classList.add("btn");
         // Adding events.
         button.addEventListener("click", () => {
-          downloadPopup.classList.add("hidden");
+          PHDownloadPopup.classList.add("hidden");
           downloadPokemon(data[`${quality}`], data["title"]);
         });
         // Appending all the elements.
-        initialButtons.appendChild(button);
+        PHInitialButtons.appendChild(button);
       });
     });
   });
@@ -90,7 +90,7 @@ function addSearchResult(data, container) {
       // Changing search results.
       deleteChilds(container);
       results.forEach((result) => {
-        addSearchResult(result, searchResultContainer);
+        addSearchResult(result, PHSearchResultContainer);
       });
     });
   });
@@ -110,22 +110,22 @@ fetch(
 .then((datas) => {
   if(!alreadySearched) {
     datas.forEach((data) => {
-      addSearchResult(data, searchResultContainer);
+      addSearchResult(data, PHSearchResultContainer);
     });
   }
 });
 
 // Events.
 // Search in Pokemonhub.
-searchForm.addEventListener("submit", (e) => {
+PHSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // Deleting previous results and reseting necessary variables.
   alreadySearched = true;
-  searchValue = searchText.value;
-  searchText.value = "";
+  searchValue = PHSearchText.value;
+  PHSearchText.value = "";
   curPage = 1;
   loadMoreFlag = true;
-  deleteChilds(searchResultContainer);
+  deleteChilds(PHSearchResultContainer);
   // Deleting the header video.
   deleteChilds(headerVideo);
 
@@ -136,13 +136,13 @@ searchForm.addEventListener("submit", (e) => {
     .then((res) => res.json())
     .then((datas) => {
       datas.forEach((data) => {
-        addSearchResult(data, searchResultContainer);
+        addSearchResult(data, PHSearchResultContainer);
       });
     });
 });
 
-deleteBtn.addEventListener("click", () => {
-  downloadPopup.classList.add("hidden");
+PHDeleteBtn.addEventListener("click", () => {
+  PHDownloadPopup.classList.add("hidden");
 });
 
 // Load more images on reaching end of page.
@@ -157,7 +157,7 @@ window.addEventListener("scroll", () => {
       .then((res) => res.json())
       .then((datas) => {
         datas.forEach((data) => {
-          addSearchResult(data, searchResultContainer);
+          addSearchResult(data, PHSearchResultContainer);
         });
         loadMoreFlag = true;
       });
