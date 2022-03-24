@@ -36,16 +36,6 @@ async function download(url, filePath) {
   );
 
   if (!fileAlreadyExists) {
-    // This is the path for python download file.
-    // Need different path for development and production.
-    // *** This needs to be inside the function,***
-    // *** or global.appPath is undefined as app was not initialized yet. ***
-    if (process.env.DEVELOPMENT) {
-      downloader = "python/download.py";
-    } else {
-      downloader = path.join(global.appPath, "..", "python/download.py");
-    }
-
     // Downloading accordingly if either array of urls/paths or single url/path was sent.
     if (Array.isArray(url)) {
       url.forEach((url, index) => {

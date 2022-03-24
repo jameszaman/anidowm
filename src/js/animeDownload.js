@@ -5,6 +5,7 @@ const user_agent =
 
 async function downloadAll(name, url) {
   // Extracting all the episode links.
+  console.log(`https://anidown.herokuapp.com/getanimeepisodelink?anime=${url}`);
   url = `https://anidown.herokuapp.com/getanimeepisodelink?anime=${url}`;
   let episode_urls = await axios.get(url);
   episode_urls = episode_urls.data;
@@ -27,6 +28,7 @@ async function downloadAll(name, url) {
 
   for (anime of episode_urls) {
     url = `https://anidown.herokuapp.com/getanimedownloadurl?anime=${anime}`;
+    console.log(url);
     let video_url = await axios.get(url);
     download_urls.push(video_url.data);
   }

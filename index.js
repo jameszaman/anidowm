@@ -1,31 +1,10 @@
 // Importing necessary modules.
 const { app, BrowserWindow, ipcMain, Menu } = require("electron");
-const { spawn } = require('child_process');
-const path = require('path');
 const { autoUpdater } = require("electron-updater");
 require('dotenv').config();
 
-// Importing user defined modules.
-const { downloadAll, downloadSelect } = require('./src/js/animeDownload');
-const pokemonhubDownload = require('./src/js/pokemonhubDownload');
-const NPokemonDownload = require('./src/js/npokemonDownload');
-const { ipcRenderer } = require("electron/renderer");
-
 let mainWindow;
-let pythonPath;
 let electronProgressStorage = [];
-
-// Python dependencies
-spawn("pip", ["install", "bs4"]);
-spawn("pip", ["install", "requests"]);
-
-// Need different path for development and production.
-if(process.env.DEVELOPMENT) {
-  pythonPath = "python/pyrun.py";
-}
-else {
-  pythonPath = path.join(app.getAppPath(), "..", "python/pyrun.py");
-}
 
 // Necessary Functions.
 function strToArray(str) {
@@ -54,13 +33,12 @@ app.on('ready', () => {
       contextIsolation: false,
     },
   });
-  mainWindow.loadURL(`file:\\\\${__dirname}\\views\\anime.html`);
+  mainWindow.loadURL(`file:\\\\${__dirname}\\views\\index.html`);
   if (!process.env.DEVELOPMENT) {
     autoUpdater.checkForUpdates();
   }
   ipcMain.on('request-app-path', () => {
     mainWindow.webContents.send("global-ready", {
-      appPath: app.getAppPath(),
       electronProgressStorage,
     });
   });
